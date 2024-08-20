@@ -1,0 +1,1012 @@
+{
+	"info": {
+		"_postman_id": "4adc9960-77d8-48d4-b31f-c2993d949efd",
+		"name": "routeEcommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35312527"
+	},
+	"item": [
+		{
+			"name": "UserENDPOINTS",
+			"item": [
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/users/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/users/66c431240ccb8c716c81707d",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"66c431240ccb8c716c81707d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"name\": \"ahmed khaled\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/users/update-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"tatawoman\",\r\n    \"confirmPassword\": \"tatawoma\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/users/update-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/users/delete-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"delete-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMyUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "CategoryENDPOINTS",
+			"item": [
+				{
+					"name": "getCategory",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/66c43501617450c0526a2d3f",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"66c43501617450c0526a2d3f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCategories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"names are weired\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/categories/66c43513617450c0526a2d41",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"66c43513617450c0526a2d41"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/66c43501617450c0526a2d3f",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"66c43501617450c0526a2d3f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCategory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\": \"Mobiles And Android\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/categories/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SubCategoryENDPOINTS",
+			"item": [
+				{
+					"name": "getSubCategory",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/sub-categories/66c4372c9bfd3c58d8ba1274",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sub-categories",
+								"66c4372c9bfd3c58d8ba1274"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubCategories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/sub-categories/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sub-categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSubCategory",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"updated weired cate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/sub-categories/66c4372c9bfd3c58d8ba1274",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sub-categories",
+								"66c4372c9bfd3c58d8ba1274"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSubCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/sub-categories/66c4372c9bfd3c58d8ba1274",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sub-categories",
+								"66c4372c9bfd3c58d8ba1274"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSubCategory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\": \"weired cate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/sub-categories/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sub-categories",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BrandENDPOINTS",
+			"item": [
+				{
+					"name": "getBrand",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/brands/66c438378a14eace556a3ea5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"66c438378a14eace556a3ea5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBrands",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/brands/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBrands",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"super weired brand\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/brands/66c438378a14eace556a3ea5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"66c438378a14eace556a3ea5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBrands",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/brands/66c438378a14eace556a3ea5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"66c438378a14eace556a3ea5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBrand",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\": \"real brand\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/brands/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProductENDPOINTS",
+			"item": [
+				{
+					"name": "getProduct",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/products/66c43aa7da728bccbf4bdb03",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"66c43aa7da728bccbf4bdb03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProducts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/products/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProducts",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"title to update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/products/66c43aa7da728bccbf4bdb03",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"66c43aa7da728bccbf4bdb03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/products/66c43aa7da728bccbf4bdb03",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"66c43aa7da728bccbf4bdb03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"High-Quality Song\",\r\n  \"description\": \"A premium leather wallet that offers a perfect blend of style and functionality. This wallet is designed with multiple compartments to keep your cards, cash, and coins organized. The material is durable and gives a luxurious feel, making it an ideal gift for yourself or a loved one.\",\r\n  \"price\": 79.99,\r\n  \"priceAfterDiscount\": 69.99,\r\n  \"category\": \"66c43513617450c0526a2d41\", \r\n  \"subCategory\": \"66c4371e9bfd3c58d8ba1272\", \r\n  \"brand\": \"66c438408a14eace556a3ea7\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/products/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AuthEndPOINTS",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"khaled tarek\",\r\n    \"email\": \"khaledtarek258x@gmail.com\",\r\n    \"password\": \"tataman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forget password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"otpCode\": \"533830\",\r\n\"email\": \"ahmed-ibrahim@gmail.com\",\r\n\"newPassword\":\"tataman\",\r\n\"confirmPassword\": \"tataman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/forget-password/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forget-password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate otp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjlhNTE2ZDAzMzE2NjdlZmJkY2ZhNSIsInJvbGVzIjoiQ29tcGFueV9IUiIsImlhdCI6MTcyMzQ5MzI0M30.vNAg183RijzMdpX4fAtnWqo0vVm59OnX3eqghsWZQHk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/generate-otp/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"generate-otp",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ahmed_ibrahim258x@gmail.com\",\r\n    \"password\": \"tataman\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:3000/api"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
