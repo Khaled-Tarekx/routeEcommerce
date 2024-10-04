@@ -3,15 +3,28 @@ import { isResourceOwner } from '../auth/helpers.js';
 import Product from '../../../database/product.model.js';
 import { StatusCodes } from 'http-status-codes';
 import slugify from 'slugify';
+import ApiFeatures from '../../utils/api_Features.js';
 
 export const getProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find({});
+	const apiFeatrues = new ApiFeatures(Product.find({}, req.query))
+		.sort()
+		.filter()
+		.paginate();
+
+	const products = await apiFeatrues.mongooseQuery.populate({
+		path: 'reviews',
+		populate: { path: 'reviewer', select: 'name' },
+	});
 	res.status(StatusCodes.OK).json({ data: products });
 });
 
 export const getProductById = asyncHandler(async (req, res) => {
 	const { id } = req.params;
-	const product = await Product.findById(id);
+	const product = await Product.findById(id).populate({
+		path: 'reviews',
+
+		populate: { path: 'reviewer', select: 'name' },
+	});
 	if (!product) {
 		return res
 			.status(StatusCodes.NOT_FOUND)
@@ -23,9 +36,17 @@ export const getProductById = asyncHandler(async (req, res) => {
 export const updateProduct = asyncHandler(async (req, res) => {
 	const user = req.user;
 	const { id } = req.params;
-	const { title, description, price, priceAfterDiscount } = req.body;
+	const {
+		title,
+		description,
+		price,
+		priceAfterDiscount,
+		imageCover,
+		images,
+	} = req.body;
 	req.body.slug = slugify(title);
-
+	if (imageCover) imageCover = req.files.imageCover[0].filename;
+	if (images) images = req.files.images.map((ele) => ele.filename);
 	const productToUpdate = await Product.findById(id);
 	if (!productToUpdate) {
 		return res
@@ -37,7 +58,15 @@ export const updateProduct = asyncHandler(async (req, res) => {
 
 		const updatedProduct = await Product.findByIdAndUpdate(
 			id,
-			{ title, slug: req.body.slug, description, price, priceAfterDiscount },
+			{
+				title,
+				slug: req.body.slug,
+				description,
+				price,
+				priceAfterDiscount,
+				imageCover,
+				images,
+			},
 			{
 				new: true,
 			}
@@ -88,11 +117,15 @@ export const createProduct = asyncHandler(async (req, res) => {
 		brand,
 	} = req.body;
 	req.body.slug = slugify(title);
+	const imageCover = req.files.imageCover[0].filename;
+	const images = req.files.images.map((ele) => ele.filename);
 	try {
 		const product = await Product.create({
 			title,
 			description,
 			slug: req.body.slug,
+			imageCover,
+			images,
 			price,
 			priceAfterDiscount,
 			category,

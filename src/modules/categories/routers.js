@@ -1,6 +1,5 @@
 import express from 'express';
 import { validateResource } from '../auth/middlewares.js';
-const router = express.Router();
 import {
 	getCategoryByID,
 	getCategories,
@@ -9,16 +8,30 @@ import {
 	createCategory,
 } from './controllers.js';
 import { updateCategorySchema, createCategorySchema } from './validation.js';
+import subcategoryRouter from '../supCategories/routers.js';
+import { uploadSingle } from '../../utils/uploads.js';
 
-router
+const categoryRouter = express.Router();
+
+categoryRouter.use('/:categoryId/sub-categories', subcategoryRouter);
+
+categoryRouter
 	.route('/')
 	.get(getCategories)
-	.post(validateResource(createCategorySchema), createCategory);
+	.post(
+		uploadSingle('image'),
+		validateResource(createCategorySchema),
+		createCategory
+	);
 
-router
+categoryRouter
 	.route('/:id')
-	.patch(validateResource(updateCategorySchema), updateCategory)
+	.patch(
+		uploadSingle('image'),
+		validateResource(updateCategorySchema),
+		updateCategory
+	)
 	.get(getCategoryByID)
 	.delete(deleteCategory);
 
-export default router;
+export default categoryRouter;

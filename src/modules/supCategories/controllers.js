@@ -5,7 +5,8 @@ import { StatusCodes } from 'http-status-codes';
 import slugify from 'slugify';
 
 export const getSubCategories = asyncHandler(async (req, res) => {
-	const subCategories = await SubCategory.find({});
+	const { categoryId } = req.params;
+	const subCategories = await SubCategory.find({ category: categoryId });
 	res.status(StatusCodes.OK).json({ data: subCategories });
 });
 
@@ -35,7 +36,7 @@ export const updateSubCategory = asyncHandler(async (req, res) => {
 
 		const updatedSupCategory = await SubCategory.findByIdAndUpdate(
 			subCategoryToUpdate.id,
-			{ name, slug: req.body.slug },
+			{ name, slug: req.body.slug, image: req.file.filename },
 			{ new: true }
 		);
 		if (!updatedSupCategory) {
@@ -72,13 +73,15 @@ export const deleteSubCategory = asyncHandler(async (req, res) => {
 
 export const createSubCategory = asyncHandler(async (req, res) => {
 	const user = req.user;
-	const { name } = req.body;
+	const { name, category } = req.body;
 	req.body.slug = slugify(name);
 	try {
 		const subCategory = await SubCategory.create({
 			name,
+			category,
 			slug: req.body.slug,
 			createdBy: user.id,
+			image: req.file.filename,
 		});
 		if (!subCategory) {
 			return res

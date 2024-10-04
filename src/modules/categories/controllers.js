@@ -32,12 +32,11 @@ export const updateCategory = asyncHandler(async (req, res) => {
 	}
 
 	try {
-		console.log(categoryToUpdate.createdBy.toString());
 		await isResourceOwner(user.id, categoryToUpdate.createdBy.toString());
 
 		const updatedCategory = await Category.findByIdAndUpdate(
 			categoryToUpdate.id,
-			{ name, slug: req.body.slug },
+			{ name, slug: req.body.slug, image: req.file.filename },
 			{ new: true }
 		);
 		if (!updatedCategory) {
@@ -80,6 +79,7 @@ export const createCategory = asyncHandler(async (req, res) => {
 			name,
 			slug: req.body.slug,
 			createdBy: user.id,
+			image: req.file.filename,
 		});
 		if (!category) {
 			return res.status(404).json({ error: 'category doesnt exist' });

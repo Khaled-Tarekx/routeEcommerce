@@ -14,6 +14,7 @@ const SupCategorySchema = new Schema(
 			lowercase: true,
 			required: true,
 		},
+		image: String,
 		category: { type: Types.ObjectId, ref: 'Category' },
 		createdBy: {
 			type: Types.ObjectId,
@@ -23,5 +24,8 @@ const SupCategorySchema = new Schema(
 	{ timestamps: true, versionKey: false }
 );
 
+SupCategorySchema.post('init', function (doc) {
+	doc.image = process.env.BASE_URL + 'uploads/' + doc.image;
+});
 const SubCategory = model('SubCategory', SupCategorySchema);
 export default SubCategory;

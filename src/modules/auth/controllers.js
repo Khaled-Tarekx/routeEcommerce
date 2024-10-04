@@ -1,6 +1,11 @@
 import { compare } from 'bcrypt';
 import User from '../../../database/user.model.js';
-import { validateOTP, hashPassword, findUserByEmail } from './helpers.js';
+import {
+	validateOTP,
+	hashPassword,
+	findUserByEmail,
+	checkEmailAndHash,
+} from './helpers.js';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
@@ -8,10 +13,11 @@ import { StatusCodes } from 'http-status-codes';
 export const register = asyncHandler(async (req, res) => {
 	try {
 		const { name, email, password } = req.body;
+		const hashedPassword = await checkEmailAndHash(email, password);
 		const user = await User.create({
 			name,
 			email,
-			password,
+			password: hashedPassword,
 		});
 		const createdUser = await User.findById(user.id).select('-password');
 
@@ -23,20 +29,22 @@ export const register = asyncHandler(async (req, res) => {
 	}
 });
 
-export const login = asyncHandler(async (req, res) => {
+export const login = asyncHandler(async (req, res, next) => {
 	const { password, email } = req.body;
-	const correctUser = await findUserByEmail(email);
-	const CorrectPassword = compare(password, correctUser.password);
-	if (!correctUser || !CorrectPassword) {
-		return res
-			.status(StatusCodes.FORBIDDEN)
-			.json({ message: `email or password is incorrect` });
+	let correctUser;
+	try {
+		correctUser = await findUserByEmail(email);
+		compare(password, correctUser.password);
+	} catch (err) {
+		return next(new Error('email or password is incorrect'));
 	}
+
 	const token = jwt.sign(
 		{
 			id: correctUser.id,
 			isBlocked: correctUser.isBlocked,
 			confirmEmail: correctUser.confirmEmail,
+			role: correctUser.role
 		},
 		process.env.SECRET_KEY
 	);

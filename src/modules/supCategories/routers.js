@@ -1,6 +1,6 @@
 import express from 'express';
 import { validateResource } from '../auth/middlewares.js';
-const router = express.Router();
+
 import {
 	getSubCategoryByID,
 	getSubCategories,
@@ -12,15 +12,26 @@ import {
 	createSubCategorySchema,
 	updateSubCategorySchema,
 } from './validation.js';
+import { uploadSingle } from '../../utils/uploads.js';
+
+const router = express.Router({ mergeParams: true });
 
 router
 	.route('/')
 	.get(getSubCategories)
-	.post(validateResource(createSubCategorySchema), createSubCategory);
+	.post(
+		uploadSingle('image'),
+		validateResource(createSubCategorySchema),
+		createSubCategory
+	);
 
 router
 	.route('/:id')
-	.patch(validateResource(updateSubCategorySchema), updateSubCategory)
+	.patch(
+		uploadSingle('image'),
+		validateResource(updateSubCategorySchema),
+		updateSubCategory
+	)
 	.get(getSubCategoryByID)
 	.delete(deleteSubCategory);
 

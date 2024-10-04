@@ -9,6 +9,8 @@ connection
 	.then(() => console.log('connented to db successfully'))
 	.catch(() => console.log('connection to db didnt work'));
 
+app.use(express.static('./uploads'));
+
 await bootstrap(app);
 
 app.get('/', (req, res) => res.send('Hello World!'));

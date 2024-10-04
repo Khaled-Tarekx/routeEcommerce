@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 export const Role = {
 	user: 'user',
 	admin: 'admin',
@@ -23,6 +23,20 @@ const UserSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		wishlist: [
+			{
+				type: Types.ObjectId,
+				ref: 'Product',
+			},
+		],
+		addresses: [
+			{
+				_id: { type: Types.ObjectId, auto: true },
+				city: String,
+				street: String,
+				phone: String,
+			},
+		],
 		isBlocked: {
 			type: Boolean,
 			default: false,

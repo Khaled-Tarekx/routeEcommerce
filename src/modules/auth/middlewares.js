@@ -1,19 +1,6 @@
-import { genSalt, hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import UnAuthenticated from '../../custom-errors/unauthenticated.js';
 import User from '../../../database/user.model.js';
-
-export const checkEmailAndHash = async (req, res, next) => {
-	const { email, password, mobileNumber } = req.body;
-	const userExistsWithEmail = await User.findOne({ email });
-	if (userExistsWithEmail) {
-		return res
-			.status(400)
-			.json({ message: `a user already exists with the given email` });
-	}
-	const salt = await genSalt(10);
-	req.body.password = await hash(password, salt);
-	next();
-};
 
 export const isAuthenticated = async (req, res, next) => {
 	const { token } = req.headers;
@@ -23,7 +10,8 @@ export const isAuthenticated = async (req, res, next) => {
 
 	try {
 		const decoded = jwt.verify(token, process.env.SECRET_KEY);
-		req.user = decoded;
+		const user = await User.findById(decoded.id);
+		req.user = user;
 		next();
 	} catch (err) {
 		return res.status(401).json({ message: 'Invalid token', error: err });
@@ -34,7 +22,12 @@ export const validateResource = (schema) => {
 	return async (req, res, next) => {
 		try {
 			if (schema.body) {
-				await schema.body.validateAsync(req.body, { abortEarly: false });
+				const requestData = {
+					...req.body,
+					...(req.files && { files: req.files }),
+					...(req.file && { file: req.file }),
+				};
+				await schema.body.validateAsync(requestData, { abortEarly: false });
 			}
 			if (schema.params) {
 				await schema.params.validateAsync(req.params, { abortEarly: false });
@@ -46,5 +39,14 @@ export const validateResource = (schema) => {
 		} catch (err) {
 			res.status(400).json(err.details);
 		}
+	};
+};
+
+export const authorizeFor = (roles) => {
+	return async (req, res, next) => {
+		if (!roles.includes(req.user.role)) {
+			return next(new UnAuthenticated('access denied'));
+		}
+		next();
 	};
 };

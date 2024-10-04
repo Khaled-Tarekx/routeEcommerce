@@ -50,3 +50,16 @@ export const findUserByEmail = async (email) => {
 	}
 	return correctUser;
 };
+
+export const checkEmailAndHash = async (email, password) => {
+	const userExistsWithEmail = await User.findOne({ email });
+	if (userExistsWithEmail) {
+		return res
+			.status(400)
+			.json({ message: `a user already exists with the given email` });
+	}
+	const salt = await genSalt(10);
+	const hashedPassword = await hash(password, salt);
+
+	return hashedPassword;
+};

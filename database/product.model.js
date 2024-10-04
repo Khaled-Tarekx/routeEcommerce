@@ -61,8 +61,27 @@ const ProductSchema = new Schema(
 			ref: 'User',
 		},
 	},
-	{ timestamps: true, versionKey: false }
+	{
+		timestamps: true,
+		versionKey: false,
+		toJSON: { virtuals: true },
+		toObject: { virtuals: true },
+	}
 );
+
+ProductSchema.virtual('reviews', {
+	ref: 'Review',
+	limit: 20,
+	localField: '_id',
+	foreignField: 'product',
+});
+
+ProductSchema.post('init', function (doc) {
+	doc.imageCover = process.env.BASE_URL + 'uploads/' + doc.imageCover;
+	doc.images = doc.images.map(
+		(ele) => process.env.BASE_URL + 'uploads/' + ele
+	);
+});
 
 const Product = model('Product', ProductSchema);
 export default Product;

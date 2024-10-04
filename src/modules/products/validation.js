@@ -7,6 +7,40 @@ export const updateProductSchema = j.object({
 		slug: j.string().trim().lowercase(),
 		price: j.number().min(0).required(),
 		priceAfterDiscount: j.number().min(0).optional().less(j.ref('price')),
+		imageCover: j.array().items(
+			j.object({
+				fieldname: j.string().required(),
+				originalname: j.string().required(),
+
+				encoding: j.string().required(),
+
+				mimetype: j.string().required(),
+
+				destination: j.string().required(),
+
+				filename: j.string().required(),
+				path: j.string().required(),
+
+				size: j.number().required(),
+			})
+		),
+		images: j.array().items(
+			j.object({
+				fieldname: j.string().required(),
+				originalname: j.string().required(),
+
+				encoding: j.string().required(),
+
+				mimetype: j.string().required(),
+
+				destination: j.string().required(),
+
+				filename: j.string().required(),
+				path: j.string().required(),
+
+				size: j.number().required(),
+			})
+		),
 	}),
 });
 
@@ -17,5 +51,45 @@ export const createProductSchema = j.object({
 		slug: j.string().trim().lowercase(),
 		price: j.number().min(0).required(),
 		priceAfterDiscount: j.number().min(1).optional().less(j.ref('price')),
+		imageCover: j
+			.array()
+			.items(
+				j.object({
+					fieldname: j.string().required(),
+					originalname: j.string().required(),
+
+					encoding: j.string().required(),
+
+					mimetype: j.string().required(),
+
+					destination: j.string().required(),
+
+					filename: j.string().required(),
+					path: j.string().required(),
+
+					size: j.number().required(),
+				})
+			)
+			.required(),
+		images: j
+			.array()
+			.items(
+				j.object({
+					fieldname: j.string().required(),
+					originalname: j.string().required(),
+
+					encoding: j.string().required(),
+
+					mimetype: j.string().required(),
+
+					destination: j.string().required(),
+
+					filename: j.string().required(),
+					path: j.string().required(),
+
+					size: j.number().required(),
+				})
+			)
+			.required(),
 	}),
 });

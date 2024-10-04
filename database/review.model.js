@@ -6,7 +6,7 @@ const ReviewSchema = new Schema(
 			type: String,
 			trim: true,
 		},
-		rate: {
+		rating: {
 			min: 0,
 			type: Number,
 			max: 5,
@@ -15,10 +15,12 @@ const ReviewSchema = new Schema(
 		reviewer: {
 			type: Types.ObjectId,
 			ref: 'User',
+			required: true,
 		},
 		product: {
 			type: Types.ObjectId,
 			ref: 'Product',
+			required: true,
 		},
 	},
 	{ timestamps: true, versionKey: false }

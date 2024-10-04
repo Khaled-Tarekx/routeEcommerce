@@ -15,7 +15,10 @@ const CategorySchema = new Schema(
 			required: true,
 		},
 		image: String,
-
+		category: {
+			type: Types.ObjectId,
+			ref: 'Category',
+		},
 		createdBy: {
 			type: Types.ObjectId,
 			ref: 'User',
@@ -23,6 +26,10 @@ const CategorySchema = new Schema(
 	},
 	{ timestamps: true, versionKey: false }
 );
+
+CategorySchema.post('init', function (doc) {
+	doc.image = process.env.BASE_URL + 'uploads/' + doc.image;
+});
 
 const Category = model('Category', CategorySchema);
 export default Category;
