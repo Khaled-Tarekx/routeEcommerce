@@ -78,9 +78,11 @@ ProductSchema.virtual('reviews', {
 
 ProductSchema.post('init', function (doc) {
 	doc.imageCover = process.env.BASE_URL + 'uploads/' + doc.imageCover;
-	doc.images = doc.images.map(
-		(ele) => process.env.BASE_URL + 'uploads/' + ele
-	);
+	if (doc.images) {
+		doc.images = doc.images.map(
+			(ele) => process.env.BASE_URL + 'uploads/' + ele
+		);
+	}
 });
 
 const Product = model('Product', ProductSchema);

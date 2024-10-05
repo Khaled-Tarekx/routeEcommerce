@@ -1,12 +1,12 @@
 import j from 'joi';
 
-export const updateUserSchema = j.object({
+export const updateUserSchema = {
 	body: j.object({
 		name: j.string().required().trim().min(2),
 	}),
-});
+};
 
-export const updatePasswordSchema = j.object({
+export const updatePasswordSchema = {
 	body: j.object({
 		password: j.string().min(5).required(),
 		confirmPassword: j
@@ -15,4 +15,4 @@ export const updatePasswordSchema = j.object({
 			.required()
 			.messages({ 'any.only': 'Passwords do not match' }),
 	}),
-});
+};

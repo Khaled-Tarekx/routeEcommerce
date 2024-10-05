@@ -8,4 +8,11 @@ const validateObjectId = j.string().custom((value, helpers) => {
 	return value;
 }, 'MongoDB ObjectId validation');
 
-export { validateObjectId };
+const updateCartPrice = (cart) => {
+	let totalPrice = 0;
+
+	cart.cartItems.forEach((ele) => (totalPrice += ele.quantity * ele.price));
+	cart.totalPrice = totalPrice;
+};
+
+export { validateObjectId, updateCartPrice };

@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 import { register, login, forgetPassword } from './controllers.js';
-import { validateResource } from './middlewares.js';
+import { validateResource } from '../../utils/middlewares.js';
 import {
 	registerValidation,
 	forgetPasswordValidation,

@@ -1,14 +1,14 @@
 import j from 'joi';
 
-export const updateCategorySchema = j.object({
+export const updateCategorySchema = {
 	body: j.object({
 		name: j.string().required().trim().min(2),
 	}),
-});
+};
 
-export const createCategorySchema = j.object({
+export const createCategorySchema = {
 	body: j.object({
 		name: j.string().required().trim().min(2),
 		//TODO: file
 	}),
-});
+};

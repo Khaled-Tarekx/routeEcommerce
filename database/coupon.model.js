@@ -9,9 +9,9 @@ const CouponSchema = new Schema(
 			trim: true,
 			unique: true,
 		},
-		expiredAt: Date,
+		expiredAt: { type: Date, required: true },
 		status: {
-			type: Boolean,
+			type: String,
 			enum: Status,
 			default: Status.active,
 		},

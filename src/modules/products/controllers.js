@@ -15,7 +15,7 @@ export const getProducts = asyncHandler(async (req, res) => {
 		path: 'reviews',
 		populate: { path: 'reviewer', select: 'name' },
 	});
-	res.status(StatusCodes.OK).json({ data: products });
+	res.status(StatusCodes.OK).json({ data: products, count: products.length });
 });
 
 export const getProductById = asyncHandler(async (req, res) => {

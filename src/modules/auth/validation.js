@@ -1,6 +1,6 @@
 import j from 'joi';
 
-export const registerValidation = j.object({
+export const registerValidation = {
 	body: j.object({
 		name: j.string().required(),
 
@@ -11,9 +11,9 @@ export const registerValidation = j.object({
 		password: j.string().min(5),
 		confirmPassword: j.ref('password'),
 	}),
-});
+};
 
-export const loginValidation = j.object({
+export const loginValidation = {
 	body: j.object({
 		email: j
 			.string()
@@ -21,7 +21,7 @@ export const loginValidation = j.object({
 
 		password: j.string().min(5).required(),
 	}),
-});
+};
 
 export const forgetPasswordValidation = j.object({
 	body: j.object({

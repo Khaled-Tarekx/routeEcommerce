@@ -1,5 +1,5 @@
 import express from 'express';
-import { validateResource } from '../auth/middlewares.js';
+import { validateResource } from '../../utils/middlewares.js';
 const router = express.Router();
 import {
 	addToWishlist,

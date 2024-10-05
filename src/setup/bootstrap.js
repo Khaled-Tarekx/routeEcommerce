@@ -4,6 +4,9 @@ import SupCategoryRouter from '../modules/supCategories/routers.js';
 import BrandRouter from '../modules/brands/routers.js';
 import ProductRouter from '../modules/products/routers.js';
 import ReviewRouter from '../modules/reviews/routers.js';
+import CouponRouter from '../modules/coupons/routers.js';
+import CartRouter from '../modules/cart/routers.js';
+
 import WishlistRouter from '../modules/wishlist/routers.js';
 import AddressesRouter from '../modules/addresses/routers.js';
 
@@ -24,6 +27,9 @@ const bootstrap = async (app) => {
 	app.use('/api/v1/sub-categories', SupCategoryRouter);
 	app.use('/api/v1/brands', BrandRouter);
 	app.use('/api/v1/reviews', ReviewRouter);
+	app.use('/api/v1/coupons', CouponRouter);
+	app.use('/api/v1/carts', CartRouter);
+
 	app.use('/api/v1/wishlist', WishlistRouter);
 	app.use('/api/v1/addresses', AddressesRouter);
 	app.use('/api/v1/products', ProductRouter);

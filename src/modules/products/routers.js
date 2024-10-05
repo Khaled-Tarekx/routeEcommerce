@@ -1,5 +1,7 @@
 import express from 'express';
-import { authorizeFor, validateResource } from '../auth/middlewares.js';
+import { validateResource } from '../../utils/middlewares.js';
+import { authorizeFor } from '../auth/middlewares.js';
+
 const router = express.Router();
 import {
 	getProductById,

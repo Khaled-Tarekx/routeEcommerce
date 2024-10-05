@@ -1,17 +1,17 @@
 import j from 'joi';
 import { validateObjectId } from '../../utils/helpers.js';
 
-export const updateReviewSchema = j.object({
+export const updateReviewSchema = {
 	body: j.object({
 		comment: j.string().trim(),
 		rating: j.number().min(0).max(5).required(),
 	}),
-});
+};
 
-export const createReviewSchema = j.object({
+export const createReviewSchema = {
 	body: j.object({
 		comment: j.string().trim(),
 		rating: j.number().min(0).max(5).required(),
 		product: validateObjectId,
 	}),
-});
+};
