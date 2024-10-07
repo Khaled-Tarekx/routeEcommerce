@@ -1,5 +1,4 @@
 import asyncHandler from 'express-async-handler';
-import { isResourceOwner } from '../auth/helpers.js';
 import { StatusCodes } from 'http-status-codes';
 import Cart from '../../../database/cart.model.js';
 import Forbidden from '../../custom-errors/forbidden.js';
@@ -9,12 +8,15 @@ import { updateCartPrice } from '../../utils/helpers.js';
 export const getLoggedInUserCart = asyncHandler(async (req, res) => {
 	const user = req.user;
 	const cart = await Cart.findOne({ owner: user._id });
-	updateCartPrice(cart);
 	if (!cart) {
 		return res
 			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'cart doesnt exist' });
+			.json({
+				error: 'you do not have a cart yet! start adding items to make one',
+			});
 	}
+	updateCartPrice(cart);
+
 	res.status(StatusCodes.OK).json({ data: cart });
 });
 
@@ -90,7 +92,7 @@ export const createCart = asyncHandler(async (req, res, next) => {
 				owner: user._id,
 				cartItems: [req.body],
 			});
-			updateCartPrice(cart);
+			await updateCartPrice(cart);
 
 			return res.status(StatusCodes.CREATED).json({ data: cart });
 		}
@@ -107,15 +109,19 @@ export const createCart = asyncHandler(async (req, res, next) => {
 				{ $push: { cartItems: [req.body] } },
 				{ new: true }
 			);
+			await updateCartPrice(updatedCart);
 
-			updateCartPrice(updatedCart);
 			return res
 				.status(StatusCodes.CREATED)
 				.json({ message: 'new item added', data: updatedCart });
 		}
 
-		updateCartPrice(cartExists);
-
+		await updateCartPrice(cartExists);
+		if (cartExists.discount) {
+			cartExists.totalPriceAfterDiscount =
+				cartExists.totalPrice -
+				(cartExists.totalPrice * cartExists.discount) / 100;
+		}
 		updatedCart = await cartExists.save();
 		res
 			.status(StatusCodes.CREATED)

@@ -6,40 +6,41 @@ export const updateProductSchema = {
 		title: j.string().trim().min(2),
 		description: j.string().trim().min(50),
 		slug: j.string().trim().lowercase(),
-		price: j.number().min(0).required(),
+		stock: j.number(),
+		price: j.number().min(0),
 		priceAfterDiscount: j.number().min(0).optional().less(j.ref('price')),
 		imageCover: j.array().items(
 			j.object({
-				fieldname: j.string().required(),
-				originalname: j.string().required(),
+				fieldname: j.string(),
+				originalname: j.string(),
 
-				encoding: j.string().required(),
+				encoding: j.string(),
 
-				mimetype: j.string().required(),
+				mimetype: j.string(),
 
-				destination: j.string().required(),
+				destination: j.string(),
 
-				filename: j.string().required(),
-				path: j.string().required(),
+				filename: j.string(),
+				path: j.string(),
 
-				size: j.number().required(),
+				size: j.number(),
 			})
 		),
 		images: j.array().items(
 			j.object({
-				fieldname: j.string().required(),
-				originalname: j.string().required(),
+				fieldname: j.string(),
+				originalname: j.string(),
 
-				encoding: j.string().required(),
+				encoding: j.string(),
 
-				mimetype: j.string().required(),
+				mimetype: j.string(),
 
-				destination: j.string().required(),
+				destination: j.string(),
 
-				filename: j.string().required(),
-				path: j.string().required(),
+				filename: j.string(),
+				path: j.string(),
 
-				size: j.number().required(),
+				size: j.number(),
 			})
 		),
 	}),
@@ -54,6 +55,7 @@ export const createProductSchema = {
 		description: j.string().trim().min(50).required(),
 		slug: j.string().trim().lowercase(),
 		price: j.number().min(0).required(),
+		stock: j.number(),
 		priceAfterDiscount: j.number().min(1).optional().less(j.ref('price')),
 		imageCover: j.array().items(
 			j.object({

@@ -1,9 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import { StatusCodes } from 'http-status-codes';
-import Coupon from '../../../database/coupon.model.js';
-import Forbidden from '../../custom-errors/forbidden.js';
+import Coupon, { Type } from '../../../database/coupon.model.js';
 import ApiFeatures from '../../utils/api_Features.js';
 import QRCode from 'qrcode';
+import Cart from '../../../database/cart.model.js';
+import NotFound from '../../custom-errors/not-found.js';
 
 export const getCoupons = asyncHandler(async (req, res) => {
 	const apiFeatrues = new ApiFeatures(Coupon.find({}), req.query)
@@ -77,4 +78,43 @@ export const createCoupon = asyncHandler(async (req, res, next) => {
 	});
 
 	res.status(StatusCodes.CREATED).json({ data: coupon });
+});
+
+export const applyCoupon = asyncHandler(async (req, res, next) => {
+	const user = req.user;
+	const { code } = req.params;
+	const userMaxUsage = 1;
+	const coupon = await Coupon.findOne({ code });
+	const usedBefore = coupon.usersUsage.find((ele) =>
+		ele.user.equals(user._id)
+	);
+	if (usedBefore && usedBefore.usageCount >= userMaxUsage) {
+		return next(new NotFound('you already used this coupon once'));
+	}
+	if (!coupon) {
+		return next(
+			new NotFound('either the coupon expired or the code isnt correct')
+		);
+	}
+	const cart = await Cart.findOne({ owner: user._id });
+	if (!cart) {
+		return next(
+			new NotFound(
+				'you didnt create a cart yet, add items to help us make your cart'
+			)
+		);
+	}
+	if (coupon.type === Type.fixed) {
+		cart.totalPriceAfterDiscount = cart.totalPrice - coupon.discount;
+	} else {
+		cart.totalPriceAfterDiscount =
+			cart.totalPrice - (cart.totalPrice * coupon.discount) / 100;
+		cart.discount = coupon.discount;
+	}
+	if (!usedBefore) {
+		coupon.usersUsage.push({ user: user._id, usageCount: 1 });
+	}
+	await coupon.save();
+	await cart.save();
+	res.status(StatusCodes.CREATED).json({ data: cart });
 });

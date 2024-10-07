@@ -8,6 +8,7 @@ import {
 	updateCoupon,
 	deleteCoupon,
 	createCoupon,
+	applyCoupon,
 } from './controllers.js';
 import { createCouponSchema, updateCouponSchema } from './validation.js';
 
@@ -21,5 +22,5 @@ router
 	.patch(validateResource(updateCouponSchema), updateCoupon)
 	.get(getCouponById)
 	.delete(deleteCoupon);
-
+router.post('/:code', applyCoupon);
 export default router;

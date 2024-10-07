@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 export const Status = { active: 'active', inactive: 'inactive' };
 export const Type = { percentage: 'percentage', fixed: 'fixed' };
 
@@ -9,6 +9,12 @@ const CouponSchema = new Schema(
 			trim: true,
 			unique: true,
 		},
+		usersUsage: [
+			{
+				user: { type: Types.ObjectId, ref: 'User' },
+				usageCount: { type: Number, default: 0 },
+			},
+		],
 		expiredAt: { type: Date, required: true },
 		status: {
 			type: String,

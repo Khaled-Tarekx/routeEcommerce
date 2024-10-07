@@ -44,7 +44,7 @@ export const hashPassword = async (password) => {
 };
 
 export const findUserByEmail = async (email) => {
-	const correctUser = await User.findOne({ email });
+	const correctUser = await User.findOne({ email }).select({ password: -1 });
 	if (!correctUser) {
 		throw new NotFound('user not found');
 	}

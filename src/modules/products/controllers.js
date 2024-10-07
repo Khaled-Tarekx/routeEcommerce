@@ -43,8 +43,11 @@ export const updateProduct = asyncHandler(async (req, res) => {
 		priceAfterDiscount,
 		imageCover,
 		images,
+		stock,
 	} = req.body;
-	req.body.slug = slugify(title);
+	if (title) {
+		req.body.slug = slugify(title);
+	}
 	if (imageCover) imageCover = req.files.imageCover[0].filename;
 	if (images) images = req.files.images.map((ele) => ele.filename);
 	const productToUpdate = await Product.findById(id);
@@ -66,6 +69,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
 				priceAfterDiscount,
 				imageCover,
 				images,
+				stock,
 			},
 			{
 				new: true,
@@ -115,6 +119,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 		category,
 		subCategory,
 		brand,
+		stock,
 	} = req.body;
 	req.body.slug = slugify(title);
 	const imageCover = req.files.imageCover[0].filename;
@@ -131,6 +136,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 			category,
 			subCategory,
 			brand,
+			stock,
 			createdBy: user.id,
 		});
 

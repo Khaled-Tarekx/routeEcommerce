@@ -41,10 +41,10 @@ export const login = asyncHandler(async (req, res, next) => {
 
 	const token = jwt.sign(
 		{
-			id: correctUser.id,
+			id: correctUser._id,
 			isBlocked: correctUser.isBlocked,
 			confirmEmail: correctUser.confirmEmail,
-			role: correctUser.role
+			role: correctUser.role,
 		},
 		process.env.SECRET_KEY
 	);
