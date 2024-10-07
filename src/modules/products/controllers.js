@@ -36,20 +36,20 @@ export const getProductById = asyncHandler(async (req, res) => {
 export const updateProduct = asyncHandler(async (req, res) => {
 	const user = req.user;
 	const { id } = req.params;
-	const {
-		title,
-		description,
-		price,
-		priceAfterDiscount,
-		imageCover,
-		images,
-		stock,
-	} = req.body;
+	const { title, description, price, priceAfterDiscount, stock } = req.body;
+
 	if (title) {
 		req.body.slug = slugify(title);
 	}
-	if (imageCover) imageCover = req.files.imageCover[0].filename;
-	if (images) images = req.files.images.map((ele) => ele.filename);
+	let files = {};
+
+	if (req.files.imageCover) {
+		files.imageCover = req.files.imageCover[0].filename;
+	}
+	if (req.files.images) {
+		files.images = req.files.images.map((ele) => ele.filename);
+	}
+
 	const productToUpdate = await Product.findById(id);
 	if (!productToUpdate) {
 		return res
@@ -67,8 +67,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
 				description,
 				price,
 				priceAfterDiscount,
-				imageCover,
-				images,
+				...files,
 				stock,
 			},
 			{
@@ -121,16 +120,24 @@ export const createProduct = asyncHandler(async (req, res) => {
 		brand,
 		stock,
 	} = req.body;
+
 	req.body.slug = slugify(title);
-	const imageCover = req.files.imageCover[0].filename;
-	const images = req.files.images.map((ele) => ele.filename);
+
+	let files = {};
+
+	if (req.files.imageCover) {
+		files.imageCover = req.files.imageCover[0].filename;
+	}
+	if (req.files.images) {
+		files.images = req.files.images.map((ele) => ele.filename);
+	}
+
 	try {
 		const product = await Product.create({
 			title,
 			description,
 			slug: req.body.slug,
-			imageCover,
-			images,
+			...files,
 			price,
 			priceAfterDiscount,
 			category,

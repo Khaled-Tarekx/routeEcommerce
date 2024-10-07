@@ -4,16 +4,43 @@ import { validateResource } from '../../utils/middlewares.js';
 const router = express.Router();
 import {
 	getLoggedInUserOrder,
-	updateCart,
+	deleteLoggedInUserOrder,
+	updateOrderAddress,
+	updateOrderStatus,
 	createCashOrder,
+	createOnlinePaymentOrder,
 } from './controllers.js';
-import { createOrderSchema, updateOrderSchema } from './validation.js';
+import {
+	createCashOrderSchema,
+	createOnlinePaymentOrderSchema,
+	updateOrderAddressSchema,
+	updateOrderStatusSchema,
+} from './validation.js';
+import { authorizeFor } from '../auth/middlewares.js';
 
 router
 	.route('/')
 	.get(getLoggedInUserOrder)
-	.patch(validateResource(updateOrderSchema), updateCart);
+	.patch(validateResource(updateOrderAddressSchema), updateOrderAddress)
+	.delete(deleteLoggedInUserOrder);
 
-router.post('/:cartId', validateResource(createOrderSchema), createCashOrder);
+router.patch(
+	'/:orderId',
+	authorizeFor(['admin']),
+	validateResource(updateOrderStatusSchema),
+	updateOrderStatus
+);
+
+router.post(
+	'/:cartId',
+	validateResource(createCashOrderSchema),
+	createCashOrder
+);
+
+router.post(
+	'/checkout/:cartId',
+	validateResource(createOnlinePaymentOrderSchema),
+	createOnlinePaymentOrder
+);
 
 export default router;

@@ -7,13 +7,13 @@ import {
 import User from '../../../database/user.model.js';
 
 export const getUsers = asyncHandler(async (req, res) => {
-	const users = await User.find({});
+	const users = await User.find({}).select('-password');
 	res.status(200).json({ data: users });
 });
 
 export const getUserByID = asyncHandler(async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findById(id);
+	const user = await User.findById(id).select('-password');
 	if (!user) {
 		return res.status(404).json({ error: 'user doesnt exist' });
 	}
@@ -22,7 +22,7 @@ export const getUserByID = asyncHandler(async (req, res) => {
 
 export const getMyUser = asyncHandler(async (req, res) => {
 	const user = req.user;
-	const myUser = await User.findById(user.id);
+	const myUser = await User.findById(user.id).select('-password');
 	if (!myUser) {
 		return res.status(404).json({ error: 'user doesnt exist' });
 	}
@@ -78,14 +78,15 @@ export const updatePassword = asyncHandler(async (req, res) => {
 	const hashedPassword = await hashPassword(password);
 
 	const userToUpdate = await User.findByIdAndUpdate(
-		id,
-		{ hashedPassword },
+		user._id,
+		{ password: hashedPassword },
 		{ new: true }
 	);
 	if (!userToUpdate) {
 		return res.status(404).json({ error: 'user doesnt exist' });
 	}
-	await isResourceOwner(user.id, userToUpdate.id);
+	console.log;
+	await isResourceOwner(user._id, userToUpdate._id);
 
 	res.status(200).json({ message: 'user password updated successfully' });
 });

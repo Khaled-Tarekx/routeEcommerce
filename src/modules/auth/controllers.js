@@ -9,6 +9,7 @@ import {
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
+import UnAuthenticated from '../../custom-errors/unauthenticated.js';
 
 export const register = asyncHandler(async (req, res) => {
 	try {
@@ -31,14 +32,14 @@ export const register = asyncHandler(async (req, res) => {
 
 export const login = asyncHandler(async (req, res, next) => {
 	const { password, email } = req.body;
-	let correctUser;
-	try {
-		correctUser = await findUserByEmail(email);
-		compare(password, correctUser.password);
-	} catch (err) {
-		return next(new Error('email or password is incorrect'));
-	}
+	const correctUser = await findUserByEmail(email);
+	const correctPassword = await compare(password, correctUser.password);
 
+	if (!correctPassword) {
+		return next(
+			new UnAuthenticated('your email or password might be incorrect')
+		);
+	}
 	const token = jwt.sign(
 		{
 			id: correctUser._id,

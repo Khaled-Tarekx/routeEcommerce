@@ -21,7 +21,7 @@ router
 			{ name: 'imageCover', maxCount: 1 },
 			{ name: 'images', maxCount: 5 },
 		]),
-		authorizeFor(['user', 'admin']),
+		authorizeFor(['admin']),
 		validateResource(createProductSchema),
 		createProduct
 	);
@@ -33,10 +33,12 @@ router
 			{ name: 'imageCover', maxCount: 1 },
 			{ name: 'images', maxCount: 5 },
 		]),
+		authorizeFor(['admin']),
+
 		validateResource(updateProductSchema),
 		updateProduct
 	)
 	.get(getProductById)
-	.delete(deleteProduct);
+	.delete(authorizeFor(['admin']), deleteProduct);
 
 export default router;
