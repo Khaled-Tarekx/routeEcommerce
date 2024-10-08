@@ -7,9 +7,7 @@ import Cart from '../../../database/cart.model.js';
 import NotFound from '../../custom-errors/not-found.js';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(
-	'sk_test_51Q7IT42Lf69vNetqXqNhqKyl8TKVI1S9mfxOpB7DkRZlocKzeCnHdMOIizPoftbXND7stMG4ZrZ3fSRYa9TryyaJ00XLEWqEEW'
-);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const getLoggedInUserOrder = asyncHandler(async (req, res) => {
 	const user = req.user;
