@@ -14,7 +14,7 @@ connection
 
 app.use(express.static('./uploads'));
 
-await bootstrap(app);
+bootstrap(app);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

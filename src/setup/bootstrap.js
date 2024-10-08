@@ -17,7 +17,7 @@ import express from 'express';
 import ErrorHandler from '../errors/middleware.js';
 import cors from 'cors';
 
-const bootstrap = async (app) => {
+const bootstrap = (app) => {
 	app.use(cors());
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
