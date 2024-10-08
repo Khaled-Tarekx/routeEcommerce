@@ -7,6 +7,6 @@
       }
     ],
    "routes": [
-  { "src": "/api/(.*)", "dest":"/src/modules/*/routes.js"  }
+  { "src": "/api/(.*)", "dest":"/src/modules/*/routers.js"  }
 ]
   }
