@@ -5,8 +5,7 @@ import bootstrap from './src/setup/bootstrap.js';
 import { connection } from './database/connection.js';
 
 const app = express();
-
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 connection
 	.then(() => console.log('connented to db successfully'))
