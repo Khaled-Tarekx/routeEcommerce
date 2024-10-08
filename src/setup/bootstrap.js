@@ -15,8 +15,10 @@ import AuthRouter from '../modules/auth/routers.js';
 import { isAuthenticated } from '../modules/auth/middlewares.js';
 import express from 'express';
 import ErrorHandler from '../errors/middleware.js';
+import cors from 'cors';
 
 const bootstrap = async (app) => {
+	app.use(cors());
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	app.use('/auth', AuthRouter);
