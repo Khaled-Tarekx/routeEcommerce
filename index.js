@@ -12,11 +12,14 @@ import NotFound from './src/custom-errors/not-found.js';
 import Product from './database/product.model.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+await connection;
+// 	.then(() => console.log('connented to db successfully'))
+// 	.catch(() => console.log('connection to db didnt work'));
 
-connection
-	.then(() => console.log('connented to db successfully'))
-	.catch(() => console.log('connection to db didnt work'));
+const port = process.env.PORT || 3000;
+app.use(express.static('./uploads'));
+
+app.get('/', (req, res) => res.send('Hello World!'));
 
 app.post(
 	'api/v1/webhook',
@@ -52,7 +55,6 @@ app.post(
 				totalOrderPrice: sessionData.amount_total / 100,
 				shippingAddress: sessionData.metadata,
 			});
-			//
 			if (order) {
 				const bulkOptions = cart.cartItems.map((ele) => ({
 					updateOne: {
@@ -82,10 +84,6 @@ app.post(
 	}
 );
 
-app.use(express.static('./uploads'));
-
 bootstrap(app);
-
-app.get('/', (req, res) => res.send('Hello World!'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
