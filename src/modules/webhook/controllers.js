@@ -1,24 +1,13 @@
-import 'dotenv/config';
-
-import express from 'express';
-import bootstrap from './src/setup/bootstrap.js';
-import { connection } from './database/connection.js';
-import Forbidden from './src/custom-errors/forbidden.js';
-import { stripe } from './src/modules/orders/controllers.js';
-import Order from './database/order.models.js';
-import Cart from './database/cart.model.js';
-import User from './database/user.model.js';
-import NotFound from './src/custom-errors/not-found.js';
-import Product from './database/product.model.js';
+import User from '../../../database/user.model.js';
+import asyncHandler from 'express-async-handler';
 import { StatusCodes } from 'http-status-codes';
+import { stripe } from '../orders/controllers.js';
+import Cart from '../../../database/cart.model.js';
+import Order from '../../../database/order.models.js';
+import Forbidden from '../../custom-errors/forbidden.js';
+import NotFound from '../../custom-errors/not-found.js';
+import Product from '../../../database/product.model.js';
 
-const app = express();
-await connection;
-// 	.then(() => console.log('connented to db successfully'))
-// 	.catch(() => console.log('connection to db didnt work'));
-
-const port = process.env.PORT || 3000;
-app.use(express.static('./uploads'));
 export const stripeWebhook = asyncHandler(async (req, res, next) => {
 	const sig = req.headers['stripe-signatrue'];
 	let event;
@@ -74,12 +63,6 @@ export const stripeWebhook = asyncHandler(async (req, res, next) => {
 			return next(new Forbidden(`Unhandled event type ${event.type}`));
 		}
 
-		res.status(StatusCodes.OK).json({ data: event, message: 'done' });
+		res.json({ data: event, message: 'done' });
 	}
 });
-
-app.get('/', (req, res) => res.send('Hello World!'));
-
-bootstrap(app);
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
