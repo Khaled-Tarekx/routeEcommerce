@@ -5,7 +5,7 @@ import bootstrap from './src/setup/bootstrap.js';
 import { connection } from './database/connection.js';
 import Forbidden from './src/custom-errors/forbidden.js';
 import { stripe } from './src/modules/orders/controllers.js';
-import Order from './database/order.models.js';
+import Order, { Method } from './database/order.models.js';
 import Cart from './database/cart.model.js';
 import User from './database/user.model.js';
 import NotFound from './src/custom-errors/not-found.js';
@@ -24,7 +24,7 @@ app.post(
 	'api/v1/webhook',
 	express.raw({ type: 'application/json' }),
 	expressAsyncHandler(async (req, res, next) => {
-		const sig = req.headers['stripe-signatrue'];
+		const sig = req.headers['stripe-signature'];
 		let event;
 		try {
 			event = stripe.webhooks.constructEvent(
@@ -53,6 +53,9 @@ app.post(
 				cartItems: cart.cartItems,
 				totalOrderPrice: sessionData.amount_total / 100,
 				shippingAddress: sessionData.metadata,
+				paymentMethod: Method.credit,
+				isPaid: true,
+				paidAt: Date.now(),
 			});
 			if (order) {
 				const bulkOptions = cart.cartItems.map((ele) => ({
