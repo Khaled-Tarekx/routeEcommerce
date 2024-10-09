@@ -9,13 +9,11 @@ export const getLoggedInUserCart = asyncHandler(async (req, res) => {
 	const user = req.user;
 	const cart = await Cart.findOne({ owner: user._id });
 	if (!cart) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({
-				error: 'you do not have a cart yet! start adding items to make one',
-			});
+		return res.status(StatusCodes.NOT_FOUND).json({
+			error: 'you do not have a cart yet! start adding items to make one',
+		});
 	}
-	updateCartPrice(cart);
+	await updateCartPrice(cart);
 
 	res.status(StatusCodes.OK).json({ data: cart });
 });
@@ -43,7 +41,7 @@ export const updateCart = asyncHandler(async (req, res, next) => {
 		}
 		item.quantity = req.body.quantity;
 
-		updateCartPrice(cartExists);
+		await updateCartPrice(cartExists);
 
 		updatedCart = await cartExists.save();
 		res
@@ -63,7 +61,7 @@ export const deleteCartItem = asyncHandler(async (req, res) => {
 			{ $pull: { cartItems: { product: productId } } },
 			{ new: true }
 		);
-		updateCartPrice(cartToUpdate);
+		await updateCartPrice(cartToUpdate);
 		res.status(StatusCodes.OK).json({
 			message: 'cart product removed successfully',
 			data: cartToUpdate,
