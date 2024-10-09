@@ -20,64 +20,68 @@ await connection;
 
 const port = process.env.PORT || 3000;
 app.use(express.static('./uploads'));
-export const stripeWebhook = expressAsyncHandler(async (req, res, next) => {
-	const sig = req.headers['stripe-signatrue'];
-	let event;
-	try {
-		event = stripe.webhooks.constructEvent(
-			req.body,
-			sig,
-			process.env.WEBHOOK_SECRET
-		);
-	} catch (err) {
-		return next(new Forbidden(err.message));
-	}
-
-	if (event.type === 'checkout.session.completed') {
-		const sessionData = event.data.object;
-		const cart = await Cart.findById(sessionData.client_reference_id);
-		if (!cart) {
-			return next(new NotFound('create your own cart then start ordering'));
+app.post(
+	'api/v1/webhook',
+	express.raw({ type: 'application/json' }),
+	expressAsyncHandler(async (req, res, next) => {
+		const sig = req.headers['stripe-signatrue'];
+		let event;
+		try {
+			event = stripe.webhooks.constructEvent(
+				req.body,
+				sig,
+				process.env.WEBHOOK_SECRET
+			);
+		} catch (err) {
+			return next(new Forbidden(err.message));
 		}
-		const user = await User.findOne({
-			email: sessionData.customer_email,
-		});
-		if (!user) {
-			return next(new NotFound('no user found with that email'));
-		}
-		const order = await Order.create({
-			owner: user._id,
-			cartItems: cart.cartItems,
-			totalOrderPrice: sessionData.amount_total / 100,
-			shippingAddress: sessionData.metadata,
-		});
-		if (order) {
-			const bulkOptions = cart.cartItems.map((ele) => ({
-				updateOne: {
-					filter: { _id: ele.product, stock: { $gte: ele.quantity } },
-					update: { $inc: { stock: -ele.quantity, sold: ele.quantity } },
-				},
-			}));
-			const result = await Product.bulkWrite(bulkOptions);
-			if (result.modifiedCount < cart.cartItems.length) {
-				const failedItems = cart.cartItems.filter(
-					(_, index) => !result.modifiedCount[index]
-				);
 
-				return res.status(StatusCodes.BAD_REQUEST).json({
-					message: 'Some items in your cart are out of stock',
-					failedItems: failedItems,
-				});
+		if (event.type === 'checkout.session.completed') {
+			const sessionData = event.data.object;
+			const cart = await Cart.findById(sessionData.client_reference_id);
+			if (!cart) {
+				return next(new NotFound('create your own cart then start ordering'));
+			}
+			const user = await User.findOne({
+				email: sessionData.customer_email,
+			});
+			if (!user) {
+				return next(new NotFound('no user found with that email'));
+			}
+			const order = await Order.create({
+				owner: user._id,
+				cartItems: cart.cartItems,
+				totalOrderPrice: sessionData.amount_total / 100,
+				shippingAddress: sessionData.metadata,
+			});
+			if (order) {
+				const bulkOptions = cart.cartItems.map((ele) => ({
+					updateOne: {
+						filter: { _id: ele.product, stock: { $gte: ele.quantity } },
+						update: { $inc: { stock: -ele.quantity, sold: ele.quantity } },
+					},
+				}));
+				const result = await Product.bulkWrite(bulkOptions);
+				if (result.modifiedCount < cart.cartItems.length) {
+					const failedItems = cart.cartItems.filter(
+						(_, index) => !result.modifiedCount[index]
+					);
+
+					return res.status(StatusCodes.BAD_REQUEST).json({
+						message: 'Some items in your cart are out of stock',
+						failedItems: failedItems,
+					});
+				}
+
+				await cart.deleteOne();
+			} else {
+				return next(new Forbidden(`Unhandled event type ${event.type}`));
 			}
 
-			await cart.deleteOne();
-		} else {
-			return next(new Forbidden(`Unhandled event type ${event.type}`));
+			res.status(StatusCodes.OK).json({ data: event, message: 'done' });
 		}
-
-		res.status(StatusCodes.OK).json({ data: event, message: 'done' });
-	}
-});
+	})
+);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
