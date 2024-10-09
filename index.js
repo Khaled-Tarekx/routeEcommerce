@@ -33,7 +33,7 @@ app.post(
 		);
 
 		if (event.type === 'checkout.session.completed') {
-			const c = event.data.object;
+			const sessionData = event.data.object;
 			const cart = await Cart.findById(sessionData.client_reference_id);
 			if (!cart) {
 				return next(new NotFound('create your own cart then start ordering'));
