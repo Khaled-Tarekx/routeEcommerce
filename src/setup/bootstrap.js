@@ -23,7 +23,7 @@ const bootstrap = (app) => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	app.use('/auth', AuthRouter);
-	app.use('/api/v1/webhook', WebhookRouter);
+	app.use('/webhook', WebhookRouter);
 
 	app.use(isAuthenticated);
 
