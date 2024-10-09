@@ -20,10 +20,11 @@ import cors from 'cors';
 
 const bootstrap = (app) => {
 	app.use(cors());
+	app.use('/webhook', WebhookRouter);
+
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	app.use('/auth', AuthRouter);
-	app.use('/webhook', WebhookRouter);
 
 	app.use(isAuthenticated);
 

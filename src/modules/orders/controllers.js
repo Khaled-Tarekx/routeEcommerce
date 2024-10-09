@@ -138,8 +138,8 @@ export const createOnlinePaymentOrder = asyncHandler(
 		try {
 			session = await stripe.checkout.sessions.create({
 				mode: 'payment',
-				success_url: 'http://localhost:3000/',
-				cancel_url: 'http://localhost:3000/api/v1/cart/',
+				success_url: 'https://route-ecommerce.vercel.app/',
+				cancel_url: 'https://route-ecommerce.vercel.app/api/v1/cart/',
 				customer_email: user.email,
 				client_reference_id: cart.id,
 				metadata: shippingAddress,
