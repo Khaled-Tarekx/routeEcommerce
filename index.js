@@ -11,6 +11,7 @@ import User from './database/user.model.js';
 import NotFound from './src/custom-errors/not-found.js';
 import Product from './database/product.model.js';
 import { StatusCodes } from 'http-status-codes';
+import expressAsyncHandler from 'express-async-handler';
 
 const app = express();
 await connection;
@@ -19,7 +20,7 @@ await connection;
 
 const port = process.env.PORT || 3000;
 app.use(express.static('./uploads'));
-export const stripeWebhook = asyncHandler(async (req, res, next) => {
+export const stripeWebhook = expressAsyncHandler(async (req, res, next) => {
 	const sig = req.headers['stripe-signatrue'];
 	let event;
 	try {
