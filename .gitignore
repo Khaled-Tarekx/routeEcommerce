@@ -1,0 +1,25 @@
+# Node.js dependencies
+/node_modules
+
+# TypeScript build output
+/dist
+
+# Environment variables file
+
+# IDE files
+.idea
+
+
+# Node.js configuration
+nodemon.json
+
+# Ignore Docker build files
+Dockerfile.*
+docker-compose.override.yml
+
+# Ignore Docker logs
+docker-logs/
+.env
+# Ignore Docker specific files
+*.log
+.vercel
