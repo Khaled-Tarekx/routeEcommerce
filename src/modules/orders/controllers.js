@@ -7,7 +7,7 @@ import Cart from '../../../database/cart.model.js';
 import NotFound from '../../custom-errors/not-found.js';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const getLoggedInUserOrder = asyncHandler(async (req, res) => {
 	const user = req.user;
@@ -132,7 +132,9 @@ export const createOnlinePaymentOrder = asyncHandler(
 		} else {
 			totalOrderPrice = cart.totalPrice;
 		}
+
 		let session;
+
 		try {
 			session = await stripe.checkout.sessions.create({
 				mode: 'payment',
