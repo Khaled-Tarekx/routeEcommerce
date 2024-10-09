@@ -33,6 +33,9 @@ export const stripeWebhook = asyncHandler(async (req, res, next) => {
 			cartItems: cart.cartItems,
 			totalOrderPrice: sessionData.amount_total / 100,
 			shippingAddress: sessionData.metadata,
+			paymentMethod: Method.credit,
+			isPaid: true,
+			paidAt: Date.now(),
 		});
 		if (order) {
 			const bulkOptions = cart.cartItems.map((ele) => ({
@@ -58,6 +61,6 @@ export const stripeWebhook = asyncHandler(async (req, res, next) => {
 			return next(new Forbidden(`Unhandled event type ${event.type}`));
 		}
 
-		res.status(StatusCodes.OK).json({ data: event });
+		res.status(StatusCodes.OK).json({ data: sessionData });
 	}
 });
