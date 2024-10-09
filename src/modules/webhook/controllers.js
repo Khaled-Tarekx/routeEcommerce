@@ -8,19 +8,13 @@ import Forbidden from '../../custom-errors/forbidden.js';
 import NotFound from '../../custom-errors/not-found.js';
 import Product from '../../../database/product.model.js';
 export const stripeWebhook = asyncHandler(async (req, res, next) => {
-	const sig = req.headers['stripe-signature'];
-	let event;
-	try {
-		console.log(process.env.WEBHOOK_SECRET);
+	const sig = req.headers['stripe-signature'].toString();
 
-		event = stripe.webhooks.constructEvent(
-			req.body,
-			sig,
-			process.env.WEBHOOK_SECRET
-		);
-	} catch (err) {
-		return next(new Forbidden(err.message));
-	}
+	const event = stripe.webhooks.constructEvent(
+		req.body,
+		sig,
+		process.env.WEBHOOK_SECRET
+	);
 
 	if (event.type === 'checkout.session.completed') {
 		const sessionData = event.data.object;
