@@ -10,6 +10,7 @@ import OrderRouter from '../modules/orders/routers.js';
 
 import WishlistRouter from '../modules/wishlist/routers.js';
 import AddressesRouter from '../modules/addresses/routers.js';
+import WebhookRouter from '../modules/webhook/routers.js';
 
 import AuthRouter from '../modules/auth/routers.js';
 import { isAuthenticated } from '../modules/auth/middlewares.js';
@@ -22,6 +23,7 @@ const bootstrap = (app) => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	app.use('/auth', AuthRouter);
+	app.use('/api/v1/webhook', WebhookRouter);
 
 	app.use(isAuthenticated);
 

@@ -7,11 +7,12 @@ import Order from '../../../database/order.models.js';
 import Forbidden from '../../custom-errors/forbidden.js';
 import NotFound from '../../custom-errors/not-found.js';
 import Product from '../../../database/product.model.js';
-
 export const stripeWebhook = asyncHandler(async (req, res, next) => {
-	const sig = req.headers['stripe-signatrue'];
+	const sig = req.headers['stripe-signature'];
 	let event;
 	try {
+		console.log(process.env.WEBHOOK_SECRET);
+
 		event = stripe.webhooks.constructEvent(
 			req.body,
 			sig,
@@ -63,6 +64,6 @@ export const stripeWebhook = asyncHandler(async (req, res, next) => {
 			return next(new Forbidden(`Unhandled event type ${event.type}`));
 		}
 
-		res.json({ data: event, message: 'done' });
+		res.status(StatusCodes.OK).json({ data: event });
 	}
 });
