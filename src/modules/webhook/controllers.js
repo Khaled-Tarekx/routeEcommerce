@@ -7,6 +7,8 @@ import Order from '../../../database/order.models.js';
 import Forbidden from '../../custom-errors/forbidden.js';
 import NotFound from '../../custom-errors/not-found.js';
 import Product from '../../../database/product.model.js';
+import { Method } from '../../../database/order.models.js';
+
 export const stripeWebhook = asyncHandler(async (req, res, next) => {
 	const sig = req.headers['stripe-signature'].toString();
 
