@@ -3,7 +3,8 @@ import { validateResource } from '../../utils/middlewares.js';
 
 const router = express.Router();
 import {
-	getLoggedInUserOrder,
+	getLoggedInUserOrders,
+	getOrderById,
 	deleteLoggedInUserOrder,
 	updateOrderAddress,
 	updateOrderStatus,
@@ -20,16 +21,18 @@ import { authorizeFor } from '../auth/middlewares.js';
 
 router
 	.route('/')
-	.get(getLoggedInUserOrder)
+	.get(getLoggedInUserOrders)
 	.patch(validateResource(updateOrderAddressSchema), updateOrderAddress)
 	.delete(deleteLoggedInUserOrder);
 
-router.patch(
-	'/:orderId',
-	authorizeFor(['admin']),
-	validateResource(updateOrderStatusSchema),
-	updateOrderStatus
-);
+router
+	.route('/:orderId')
+	.patch(
+		authorizeFor(['admin']),
+		validateResource(updateOrderStatusSchema),
+		updateOrderStatus
+	)
+	.get(getOrderById);
 
 router.post(
 	'/:cartId',

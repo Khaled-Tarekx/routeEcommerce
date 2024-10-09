@@ -9,15 +9,21 @@ import Stripe from 'stripe';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const getLoggedInUserOrder = asyncHandler(async (req, res) => {
-	const user = req.user;
-	const order = await Order.findOne({ owner: user._id });
+export const getOrderById = asyncHandler(async (req, res) => {
+	const { orderId } = req.params;
+	const order = await Order.findOne({ _id: orderId });
 	if (!order) {
 		return res
 			.status(StatusCodes.NOT_FOUND)
 			.json({ error: 'order doesnt exist' });
 	}
 	res.status(StatusCodes.OK).json({ data: order });
+});
+
+export const getLoggedInUserOrders = asyncHandler(async (req, res) => {
+	const user = req.user;
+	const orders = await Order.find({ owner: user._id });
+	res.status(StatusCodes.OK).json({ data: orders });
 });
 
 export const deleteLoggedInUserOrder = asyncHandler(async (req, res) => {
