@@ -42,9 +42,9 @@ const bootstrap = (app) => {
 	app.use('/api/v1/addresses', AddressesRouter);
 	app.use('/api/v1/products', ProductRouter);
 	app.use(ErrorHandler);
-	app.use('*', (req, res) =>
-		res.status(StatusCodes.NOT_FOUND).json('Page Not Found')
-	);
+	// app.use('*', (req, res) =>
+	// 	res.status(StatusCodes.NOT_FOUND).json('Page Not Found')
+	// );
 };
 
 export default bootstrap;
