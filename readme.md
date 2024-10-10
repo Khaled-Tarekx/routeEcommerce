@@ -11,6 +11,10 @@ other essential business functionalities.
 
 https://documenter.getpostman.com/view/35312527/2sAXxQfY5o
 
+## deployed on
+
+https://route-ecommerce.vercel.app/
+
 ## Within this project
 
 you'll find a Postman collection JSON file that contains all the routes used
