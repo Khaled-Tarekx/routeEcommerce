@@ -1,0 +1,3012 @@
+{
+	"info": {
+		"_postman_id": "5ca8a8f2-b3c1-4047-a8e1-58f3fbf849a6",
+		"name": "routeEcommerce production",
+		"description": "this documents the production version of the routeEcommerce project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35312527"
+	},
+	"item": [
+		{
+			"name": "AuthEndPOINTS",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n\"name\": \"khaled tarek\",\n\t\"email\": \"kingdodo987@gmail.com\",\n\"password\": \"tataman\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/auth/register/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								""
+							]
+						},
+						"description": "user registeration endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "forget password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"otpCode\": \"344610\",\r\n\"email\": \"kingdodo987@gmail.com\",\r\n\"newPassword\":\"tataman1\",\r\n\"confirmPassword\": \"tataman1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/auth/forget-password/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"auth",
+								"forget-password",
+								""
+							]
+						},
+						"description": "forgot passsword endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "generate otp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YjlhNTE2ZDAzMzE2NjdlZmJkY2ZhNSIsInJvbGVzIjoiQ29tcGFueV9IUiIsImlhdCI6MTcyMzQ5MzI0M30.vNAg183RijzMdpX4fAtnWqo0vVm59OnX3eqghsWZQHk"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/auth/generate-otp/67070e39898431a3b802ed49",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"auth",
+								"generate-otp",
+								"67070e39898431a3b802ed49"
+							]
+						},
+						"description": "token generation for the forgot password endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"kingdodo987@gmail.com\",\n\"password\": \"tataman1\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/auth/login",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "user login to the app endpoint"
+					},
+					"response": []
+				}
+			],
+			"description": "this module handles the auth routes needed for my app to be secure",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ProductENDPOINTS",
+			"item": [
+				{
+					"name": "getProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/products/6704262ad2e4c61e129ee34e",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"6704262ad2e4c61e129ee34e"
+							]
+						},
+						"description": "get product by id"
+					},
+					"response": []
+				},
+				{
+					"name": "getProducts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/products/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						},
+						"description": "get all products"
+					},
+					"response": []
+				},
+				{
+					"name": "updateProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "stock",
+									"value": "150"
+								},
+								{
+									"key": "imageCover",
+									"type": "file",
+									"src": "C:\\Users\\KhaledTarek\\Downloads\\task.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/products/6704262ad2e4c61e129ee34e",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"6704262ad2e4c61e129ee34e"
+							]
+						},
+						"description": "update product by id"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/products/67042795b555da27d258f148",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"67042795b555da27d258f148"
+							]
+						},
+						"description": "delete product by id"
+					},
+					"response": []
+				},
+				{
+					"name": "createProduct",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "High-Quality test product 6"
+								},
+								{
+									"key": "description",
+									"value": "A premium leather wallet that offers a perfect blend of style and functionality. This wallet is designed with multiple compartments to keep your cards, cash, and coins organized. The material is durable and gives a luxurious feel, making it an ideal gift for yourself or a loved one"
+								},
+								{
+									"key": "price",
+									"value": "79.99"
+								},
+								{
+									"key": "priceAfterDiscount",
+									"value": "69.99"
+								},
+								{
+									"key": "category",
+									"value": "66c43513617450c0526a2d41"
+								},
+								{
+									"key": "subCategory",
+									"value": "66c4371e9bfd3c58d8ba1272"
+								},
+								{
+									"key": "brand",
+									"value": "66c438408a14eace556a3ea7"
+								},
+								{
+									"key": "stock",
+									"value": "200"
+								},
+								{
+									"key": "imageCover",
+									"type": "file",
+									"src": "C:\\Users\\KhaledTarek\\Downloads\\image.png"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "C:\\Users\\KhaledTarek\\Downloads\\task.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/products/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						},
+						"description": "create the product"
+					},
+					"response": []
+				}
+			],
+			"description": "Handles all product-related operations, including the creation, retrieval, updating, and deletion of product listings. This module ensures that product information is accurately maintained and available for users to browse and purchase."
+		},
+		{
+			"name": "AddressesENDPOINTS",
+			"item": [
+				{
+					"name": "getLoggedInUserAddresses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/addresses/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								""
+							]
+						},
+						"description": "gets the logged in user addresses as descriped"
+					},
+					"response": []
+				},
+				{
+					"name": "updateAddressFromUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \t\"city\": \"alexandria\",\n\t\"street\": \"mohamed mousa\",\n\t\"phone\": \"01252046782\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/addresses/670716d8a0787f35458f6458",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"670716d8a0787f35458f6458"
+							]
+						},
+						"description": "updates an address for the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "removeAddressFromUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/addresses/670716d8a0787f35458f6458",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								"670716d8a0787f35458f6458"
+							]
+						},
+						"description": "remove an address for the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "addAddressToUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"city\": \"cair1o\",\n\t\"street\": \"mohamed \",\n\t\"phone\": \"01252048055\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/addresses/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"addresses",
+								""
+							]
+						},
+						"description": "adds an address to the logged in user"
+					},
+					"response": []
+				}
+			],
+			"description": "Manages the storage and retrieval of user addresses. This module allows users to add, update, and select multiple shipping and billing addresses, ensuring that orders are delivered to the correct address."
+		},
+		{
+			"name": "WishlistENDPOINTS",
+			"item": [
+				{
+					"name": "getLoggedInUserWishList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/wishlist/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"wishlist",
+								""
+							]
+						},
+						"description": "gets the logged in user wishlist of listed products"
+					},
+					"response": []
+				},
+				{
+					"name": "removeProductFromWishList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/wishlist/6704262ad2e4c61e129ee34e",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"wishlist",
+								"6704262ad2e4c61e129ee34e"
+							]
+						},
+						"description": "removes a product from the wishlist of the logged in user with the product id"
+					},
+					"response": []
+				},
+				{
+					"name": "addProductToWishList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/wishlist/6704262ad2e4c61e129ee34e",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"wishlist",
+								"6704262ad2e4c61e129ee34e"
+							]
+						},
+						"description": "adds a product to the wishlist of the logged in user with the product id"
+					},
+					"response": []
+				}
+			],
+			"description": "Enables users to create and manage wishlists, allowing them to save products they are interested in for future reference or purchase. This module enhances the user experience by providing a personalized shopping list."
+		},
+		{
+			"name": "OrderENDPOINTS",
+			"item": [
+				{
+					"name": "getLoggedInUserOrders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								""
+							]
+						},
+						"description": "gets the logged in user orders"
+					},
+					"response": []
+				},
+				{
+					"name": "get order by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/6707d73739b966938c5e40db",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"6707d73739b966938c5e40db"
+							]
+						},
+						"description": "gets an order by order id from the logged in user orders"
+					},
+					"response": []
+				},
+				{
+					"name": "update Order address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"shippingAddress\": {\n\t\t\t\"city\": \"istanbul\",\n\t\t\t\"street\": \"khaled tarek\"\n\t\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								""
+							]
+						},
+						"description": "update the order address for the user"
+					},
+					"response": []
+				},
+				{
+					"name": "update Order status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"isPaid\": true,\n\t\"isDelivered\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/6707d70b7ba9a056dc7fc81a",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"6707d70b7ba9a056dc7fc81a"
+							]
+						},
+						"description": "update the order status from an admin account"
+					},
+					"response": []
+				},
+				{
+					"name": "remove Order by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/6707d73739b966938c5e40db",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"6707d73739b966938c5e40db"
+							]
+						},
+						"description": "removes a spicific order for for the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "create Cash Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"shippingAddress\": {\n\t \"street\": \"mohamed mousa\",\n\t \"city\": \"aalexandria\"\n }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/67071a85b327dfaf9c3d0920",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"67071a85b327dfaf9c3d0920"
+							]
+						},
+						"description": "creates a cash on delivery order for the enduser"
+					},
+					"response": []
+				},
+				{
+					"name": "create Online payment order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"shippingAddress\": {\n\t \"street\": \"mohamed mousa\",\n\t \"city\": \"cairo\"\n }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/order/checkout/6707d7ea39b966938c5e40fd",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order",
+								"checkout",
+								"6707d7ea39b966938c5e40fd"
+							]
+						},
+						"description": "creates an online payment order though stripe gateway with the cart id in params"
+					},
+					"response": []
+				}
+			],
+			"description": "Manages the entire order lifecycle, from order creation to fulfillment. It tracks order statuses, processes payments, and ensures that orders are accurately recorded and managed throughout the purchasing process."
+		},
+		{
+			"name": "CartENDPOINTS",
+			"item": [
+				{
+					"name": "getLoggedInUserCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{produrl}}/api/v1/carts/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								""
+							]
+						},
+						"description": "gets the logged in user's cart"
+					},
+					"response": []
+				},
+				{
+					"name": "update item quantity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"product\": \"67042903f5cd497ce724d72a\",\n\t\"quantity\": 22\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/carts/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								""
+							]
+						},
+						"description": "updates the item quantity for the item you added to your cart"
+					},
+					"response": []
+				},
+				{
+					"name": "remove Cart item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/carts/67042903f5cd497ce724d72a",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"67042903f5cd497ce724d72a"
+							]
+						},
+						"description": "removes an item from your cart"
+					},
+					"response": []
+				},
+				{
+					"name": "createCart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"product\": \"67042903f5cd497ce724d72a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/carts/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								""
+							]
+						},
+						"description": "creates the cart with a simple product id in the body and handles price calculations"
+					},
+					"response": []
+				}
+			],
+			"description": "Manages the user's shopping cart, enabling users to add, update, and remove products they intend to purchase. It ensures that the cart persists across user sessions and accurately reflects the selected items and quantities."
+		},
+		{
+			"name": "CouponENDPOINTS",
+			"item": [
+				{
+					"name": "getCoupon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/coupons/67012ac7ca8705e9398e3bbb",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"coupons",
+								"67012ac7ca8705e9398e3bbb"
+							]
+						},
+						"description": "get coupon by id"
+					},
+					"response": []
+				},
+				{
+					"name": "getCoupons",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/coupons",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"coupons"
+							]
+						},
+						"description": "get all coupons"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCoupon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"code\": \"coupon20\",\n\t\"expiredAt\": \"11/27/2024\",\n\t\"status\": \"active\",\n\t\"type\": \"percentage\",\n\t\"discount\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/coupons/67012ac7ca8705e9398e3bbb",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"coupons",
+								"67012ac7ca8705e9398e3bbb"
+							]
+						},
+						"description": "updates coupon"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCoupon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/coupons/67012ac7ca8705e9398e3bbb",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"coupons",
+								"67012ac7ca8705e9398e3bbb"
+							]
+						},
+						"description": "delete a specific coupon"
+					},
+					"response": []
+				},
+				{
+					"name": "createCoupon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": []
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"code\": \"coupon12\",\n\t\"expiredAt\": \"10/25/24\",\n\t\"status\": \"active\",\n\t\"type\": \"fixed\",\n\t\"discount\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/coupons/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"coupons",
+								""
+							]
+						},
+						"description": "creating the coupon"
+					},
+					"response": []
+				},
+				{
+					"name": "applyCoupon",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/coupons/coupon10",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"coupons",
+								"coupon10"
+							]
+						},
+						"description": "apply the coupon by the code in params to the logged in user cart"
+					},
+					"response": []
+				}
+			],
+			"description": "handles coupon creation and retrieval and applying that coupon to a specific cart  \nall routes are admin specific routes besides apply to the cart"
+		},
+		{
+			"name": "ReviewENDPOINTS",
+			"item": [
+				{
+					"name": "getReview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/reviews/66fffb183ef0ddceaa3ab42e",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"66fffb183ef0ddceaa3ab42e"
+							]
+						},
+						"description": "get review by id"
+					},
+					"response": []
+				},
+				{
+					"name": "updateReview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"comment\": \"super weired product\",\n\t\"rating\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/reviews/66fffb0e3ef0ddceaa3ab42a",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"66fffb0e3ef0ddceaa3ab42a"
+							]
+						},
+						"description": "updates the commentt and rating for a review by id for the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteReview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/reviews/66fff95307e3bd76738c9e2f",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"66fff95307e3bd76738c9e2f"
+							]
+						},
+						"description": "delete a review by id for the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "createReview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"comment\": \"such a good product\",\n\t\"product\": \"67042903f5cd497ce724d72a\",\n\t\"rating\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/reviews/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								""
+							]
+						},
+						"description": "creates a review for a specific product"
+					},
+					"response": []
+				}
+			],
+			"description": "Facilitates the collection and management of user reviews and ratings for products. This module allows users to provide feedback on their purchases, helping other customers make informed decisions and providing valuable insights for product improvements."
+		},
+		{
+			"name": "BrandENDPOINTS",
+			"item": [
+				{
+					"name": "getBrand",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/brands/66c438408a14eace556a3ea7",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"66c438408a14eace556a3ea7"
+							]
+						},
+						"description": "get brand by id"
+					},
+					"response": []
+				},
+				{
+					"name": "getBrands",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/brands/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								""
+							]
+						},
+						"description": "get all brands"
+					},
+					"response": []
+				},
+				{
+					"name": "updateBrand",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "apple",
+									"type": "text"
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/KhaledTarek/Downloads/task.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/brands/66c438408a14eace556a3ea7",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"66c438408a14eace556a3ea7"
+							]
+						},
+						"description": "update brand name"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBrand",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/brands/6707d94aa12b26d2073e5624",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								"6707d94aa12b26d2073e5624"
+							]
+						},
+						"description": "delete brand by id"
+					},
+					"response": []
+				},
+				{
+					"name": "createBrand",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "samsung",
+									"type": "text"
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/KhaledTarek/Downloads/image.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/brands/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"brands",
+								""
+							]
+						},
+						"description": "create brand"
+					},
+					"response": []
+				}
+			],
+			"description": "Manages the different brands associated with products on the platform. This module handles the creation, updating, and organization of brand information, enabling users to filter and search products based on their preferred brands."
+		},
+		{
+			"name": "SubCategoryENDPOINTS",
+			"item": [
+				{
+					"name": "getSubCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/subcategories/670800271d8acf97db350172",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories",
+								"670800271d8acf97db350172"
+							]
+						},
+						"description": "get sub category by id"
+					},
+					"response": []
+				},
+				{
+					"name": "getSubCategories of category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/categories/66ff0508018a2666c4f5b8ca/subcategories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"66ff0508018a2666c4f5b8ca",
+								"subcategories"
+							]
+						},
+						"description": "get subcategories of a category by category id"
+					},
+					"response": []
+				},
+				{
+					"name": "updateSubCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "updated sub category",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef81c69-55b6-4fc0-a2a3-ff831f952b52"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/subcategories/66ff05aeeb13492e0bea3da6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories",
+								"66ff05aeeb13492e0bea3da6"
+							]
+						},
+						"description": "update subgategory by its id"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSubCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/subcategories/66ff05aeeb13492e0bea3da6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"subcategories",
+								"66ff05aeeb13492e0bea3da6"
+							]
+						},
+						"description": "delete subgategory by its id"
+					},
+					"response": []
+				},
+				{
+					"name": "createSubCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "weired sub category",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/KhaledTarek/Downloads/task.png"
+								},
+								{
+									"key": "category",
+									"value": "66ff0508018a2666c4f5b8ca",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/sub-categories/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sub-categories",
+								""
+							]
+						},
+						"description": "create subgategory"
+					},
+					"response": []
+				}
+			],
+			"description": "Further refines product organization by categorizing products into subcategories under main categories. This module ensures a hierarchical structure, allowing for more detailed and specific product classification for enhanced user navigation."
+		},
+		{
+			"name": "CategoryENDPOINTS",
+			"item": [
+				{
+					"name": "getCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/categories/6707e45f634b6efb9a94a155",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"6707e45f634b6efb9a94a155"
+							]
+						},
+						"description": "get category by id"
+					},
+					"response": []
+				},
+				{
+					"name": "getCategories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/categories/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								""
+							]
+						},
+						"description": "get all categories"
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "phones and electronics",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/KhaledTarek/Downloads/image.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/categories/66ff0508018a2666c4f5b8ca",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"66ff0508018a2666c4f5b8ca"
+							]
+						},
+						"description": "update category by id"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/categories/6707e45f634b6efb9a94a155",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"6707e45f634b6efb9a94a155"
+							]
+						},
+						"description": "delete category by id"
+					},
+					"response": []
+				},
+				{
+					"name": "createCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "computers",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef81c69-55b6-4fc0-a2a3-ff831f952b52"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/categories/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								""
+							]
+						},
+						"description": "create category"
+					},
+					"response": []
+				}
+			],
+			"description": "Organizes products into various categories, making it easier for users to navigate and find products of interest. This module manages the creation, updating, and deletion of product categories to maintain a well-structured product catalog."
+		},
+		{
+			"name": "UserENDPOINTS",
+			"item": [
+				{
+					"name": "getUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/users/",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						},
+						"description": "get all users"
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/users/6703107d76d99f98b9f95b1d",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"6703107d76d99f98b9f95b1d"
+							]
+						},
+						"description": "get user by id"
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"Khaled tarek\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/users/update-user",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update-user"
+							]
+						},
+						"description": "update the logged in user information"
+					},
+					"response": []
+				},
+				{
+					"name": "update password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"tataman\",\n    \"confirmPassword\": \"tataman\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{produrl}}/api/v1/users/update-password",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update-password"
+							]
+						},
+						"description": "change the password for the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/users/delete-user",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"delete-user"
+							]
+						},
+						"description": "delete the logged in user"
+					},
+					"response": []
+				},
+				{
+					"name": "getMyUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true,
+						"disableUrlEncoding": false,
+						"disableCookies": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQzMjk2NDZjMTM5NTJmMjU0NDM4MyIsImlzQmxvY2tlZCI6ZmFsc2UsImNvbmZpcm1FbWFpbCI6ZmFsc2UsImlhdCI6MTcyNDEzNDA0N30.Pi2ndtAlVwtR-lnBjC3W2ahwXE4QtB0Hh9Bgg-FAJ28"
+							}
+						],
+						"url": {
+							"raw": "{{produrl}}/api/v1/users/me",
+							"host": [
+								"{{produrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						},
+						"description": "retrieve the logged in user"
+					},
+					"response": []
+				}
+			],
+			"description": "Handles user management including profile managementThis module ensures that users can retrieve or update thier users"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDcwZTM5ODk4NDMxYTNiODAyZWQ0OSIsImlhdCI6MTcyODUxNzUzNX0.qsAuwQ8RO3xWJJ4Gr1dDN-XBq8_haE-ewCFHofQ6Q6c",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "{{produrl}}"
+		},
+		{
+			"key": "produrl",
+			"value": "https://route-ecommerce.vercel.app"
+		}
+	]
+}

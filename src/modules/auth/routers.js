@@ -1,7 +1,12 @@
 import express from 'express';
 
 const router = express.Router();
-import { register, login, forgetPassword } from './controllers.js';
+import {
+	register,
+	login,
+	forgetPassword,
+	generateOtp,
+} from './controllers.js';
 import { validateResource } from '../../utils/middlewares.js';
 import {
 	registerValidation,
@@ -12,6 +17,7 @@ import {
 router.post('/register/', validateResource(registerValidation), register);
 
 router.post('/login/', validateResource(loginValidation), login);
+router.post('/generate-otp/:id', generateOtp);
 
 router.post(
 	'/forget-password/',

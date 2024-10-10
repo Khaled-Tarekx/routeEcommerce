@@ -5,7 +5,7 @@ const router = express.Router();
 import {
 	getLoggedInUserOrders,
 	getOrderById,
-	deleteLoggedInUserOrder,
+	deleteOrderById,
 	updateOrderAddress,
 	updateOrderStatus,
 	createCashOrder,
@@ -22,8 +22,7 @@ import { authorizeFor } from '../auth/middlewares.js';
 router
 	.route('/')
 	.get(getLoggedInUserOrders)
-	.patch(validateResource(updateOrderAddressSchema), updateOrderAddress)
-	.delete(deleteLoggedInUserOrder);
+	.patch(validateResource(updateOrderAddressSchema), updateOrderAddress);
 
 router
 	.route('/:orderId')
@@ -32,7 +31,8 @@ router
 		validateResource(updateOrderStatusSchema),
 		updateOrderStatus
 	)
-	.get(getOrderById);
+	.get(getOrderById)
+	.delete(deleteOrderById);
 
 router.post(
 	'/:cartId',

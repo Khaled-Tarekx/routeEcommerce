@@ -13,6 +13,10 @@ const UserSchema = new Schema(
 			minLength: [2, 'sub category name is too short'],
 		},
 		email: { type: String, required: true, unique: true },
+		otp: {
+			code: String,
+			expiresAt: Date,
+		},
 		password: String,
 		role: {
 			type: String,

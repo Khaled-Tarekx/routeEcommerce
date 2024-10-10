@@ -4,6 +4,7 @@ import Product from '../../../database/product.model.js';
 import { StatusCodes } from 'http-status-codes';
 import slugify from 'slugify';
 import ApiFeatures from '../../utils/api_Features.js';
+import NotFound from '../../custom-errors/not-found.js';
 
 export const getProducts = asyncHandler(async (req, res) => {
 	const apiFeatrues = new ApiFeatures(Product.find({}, req.query))
@@ -18,7 +19,7 @@ export const getProducts = asyncHandler(async (req, res) => {
 	res.status(StatusCodes.OK).json({ data: products, count: products.length });
 });
 
-export const getProductById = asyncHandler(async (req, res) => {
+export const getProductById = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const product = await Product.findById(id).populate({
 		path: 'reviews',
@@ -26,15 +27,12 @@ export const getProductById = asyncHandler(async (req, res) => {
 		populate: { path: 'reviewer', select: 'name' },
 	});
 	if (!product) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'Product doesnt exist' });
+		return next(new NotFound('Product doesnt exist'));
 	}
 	res.status(StatusCodes.OK).json({ data: product });
 });
 
-export const updateProduct = asyncHandler(async (req, res) => {
-	const user = req.user;
+export const updateProduct = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const { title, description, price, priceAfterDiscount, stock } = req.body;
 
@@ -50,65 +48,44 @@ export const updateProduct = asyncHandler(async (req, res) => {
 		files.images = req.files.images.map((ele) => ele.filename);
 	}
 
-	const productToUpdate = await Product.findById(id);
-	if (!productToUpdate) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'Product doesnt exist' });
-	}
-	try {
-		await isResourceOwner(user.id, productToUpdate.createdBy.toString());
-
-		const updatedProduct = await Product.findByIdAndUpdate(
-			id,
-			{
-				title,
-				slug: req.body.slug,
-				description,
-				price,
-				priceAfterDiscount,
-				...files,
-				stock,
-			},
-			{
-				new: true,
-			}
-		);
-		if (!updatedProduct) {
-			return res
-				.status(StatusCodes.NOT_FOUND)
-				.json({ error: 'Product doesnt exist' });
+	const updatedProduct = await Product.findOneAndUpdate(
+		{ _id: id },
+		{
+			title,
+			slug: req.body.slug,
+			description,
+			price,
+			priceAfterDiscount,
+			...files,
+			stock,
+		},
+		{
+			new: true,
 		}
-
-		res.status(StatusCodes.OK).json({ data: updatedProduct });
-	} catch (err) {
-		return res.status(StatusCodes.FORBIDDEN).json({ err: err.message });
+	);
+	if (!updatedProduct) {
+		return next(new NotFound('Product doesnt exist'));
 	}
+
+	res.status(StatusCodes.OK).json({ data: updatedProduct });
 });
 
-export const deleteProduct = asyncHandler(async (req, res) => {
-	const user = req.user;
+export const deleteProduct = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 
-	const productToDelete = await Product.findById(id);
-	if (!productToDelete) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'Product doesnt exist' });
+	const deletedProduct = await Product.findOneAndDelete({
+		_id: id,
+	});
+	if (!deletedProduct) {
+		return next(new NotFound('Product doesnt exist'));
 	}
-	try {
-		await isResourceOwner(user.id, productToDelete.createdBy.toString());
 
-		await Product.findByIdAndDelete(productToDelete.id);
-		res
-			.status(StatusCodes.OK)
-			.json({ message: 'Product deleted successfully' });
-	} catch (err) {
-		return res.status(StatusCodes.FORBIDDEN).json({ err: err.message });
-	}
+	res
+		.status(StatusCodes.OK)
+		.json({ message: 'Product deleted successfully' });
 });
 
-export const createProduct = asyncHandler(async (req, res) => {
+export const createProduct = asyncHandler(async (req, res, next) => {
 	const user = req.user;
 	const {
 		title,
@@ -132,23 +109,23 @@ export const createProduct = asyncHandler(async (req, res) => {
 		files.images = req.files.images.map((ele) => ele.filename);
 	}
 
-	try {
-		const product = await Product.create({
-			title,
-			description,
-			slug: req.body.slug,
-			...files,
-			price,
-			priceAfterDiscount,
-			category,
-			subCategory,
-			brand,
-			stock,
-			createdBy: user.id,
-		});
+	const product = await Product.create({
+		title,
+		description,
+		slug: req.body.slug,
+		...files,
+		price,
+		priceAfterDiscount,
+		category,
+		subCategory,
+		brand,
+		stock,
+		createdBy: user._id,
+	});
 
-		res.status(StatusCodes.CREATED).json({ data: product });
-	} catch (err) {
-		return res.status(StatusCodes.FORBIDDEN).json({ err: err.message });
+	if (!product) {
+		return next(new NotFound('Product creation failed'));
 	}
+
+	res.status(StatusCodes.CREATED).json({ data: product });
 });

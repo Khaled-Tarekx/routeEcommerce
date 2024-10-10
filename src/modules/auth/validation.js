@@ -3,7 +3,6 @@ import j from 'joi';
 export const registerValidation = {
 	body: j.object({
 		name: j.string().required(),
-
 		email: j
 			.string()
 			.required()

@@ -13,7 +13,7 @@ import { uploadSingle } from '../../utils/uploads.js';
 
 const categoryRouter = express.Router();
 
-categoryRouter.use('/:categoryId/sub-categories', subcategoryRouter);
+categoryRouter.use('/:categoryId/subcategories', subcategoryRouter);
 
 categoryRouter
 	.route('/')

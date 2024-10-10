@@ -27,5 +27,6 @@ const SupCategorySchema = new Schema(
 SupCategorySchema.post('init', function (doc) {
 	doc.image = process.env.BASE_URL + 'uploads/' + doc.image;
 });
+
 const SubCategory = model('SubCategory', SupCategorySchema);
 export default SubCategory;

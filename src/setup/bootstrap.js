@@ -17,6 +17,7 @@ import { isAuthenticated } from '../modules/auth/middlewares.js';
 import express from 'express';
 import ErrorHandler from '../errors/middleware.js';
 import cors from 'cors';
+import { StatusCodes } from 'http-status-codes';
 
 const bootstrap = (app) => {
 	app.use(cors());
@@ -30,7 +31,7 @@ const bootstrap = (app) => {
 
 	app.use('/api/v1/users', UserRouter);
 	app.use('/api/v1/categories', CategoryRouter);
-	app.use('/api/v1/sub-categories', SupCategoryRouter);
+	app.use('/api/v1/subcategories', SupCategoryRouter);
 	app.use('/api/v1/brands', BrandRouter);
 	app.use('/api/v1/reviews', ReviewRouter);
 	app.use('/api/v1/coupons', CouponRouter);
@@ -41,7 +42,9 @@ const bootstrap = (app) => {
 	app.use('/api/v1/addresses', AddressesRouter);
 	app.use('/api/v1/products', ProductRouter);
 	app.use(ErrorHandler);
-	app.use('*', (req, res) => res.json('Page Not Found'));
+	app.use('*', (req, res) =>
+		res.status(StatusCodes.NOT_FOUND).json('Page Not Found')
+	);
 };
 
 export default bootstrap;

@@ -4,17 +4,13 @@ import { validateResource } from '../../utils/middlewares.js';
 const router = express.Router();
 import {
 	getReviewById,
-	getReviews,
 	updateReview,
 	deleteReview,
 	createReview,
 } from './controllers.js';
 import { createReviewSchema, updateReviewSchema } from './validation.js';
 
-router
-	.route('/')
-	.get(getReviews)
-	.post(validateResource(createReviewSchema), createReview);
+router.post('/', validateResource(createReviewSchema), createReview);
 
 router
 	.route('/:id')

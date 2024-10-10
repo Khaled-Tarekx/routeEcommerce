@@ -8,16 +8,26 @@ import {
 	deleteBrand,
 	createBrand,
 } from './controllers.js';
+import { uploadSingle } from '../../utils/uploads.js';
+
 import { createBrandSchema, updateBrandSchema } from './validation.js';
 
 router
 	.route('/')
 	.get(getBrands)
-	.post(validateResource(createBrandSchema), createBrand);
+	.post(
+		uploadSingle('logo'),
+		validateResource(createBrandSchema),
+		createBrand
+	);
 
 router
 	.route('/:id')
-	.patch(validateResource(updateBrandSchema), updateBrand)
+	.patch(
+		uploadSingle('logo'),
+		validateResource(updateBrandSchema),
+		updateBrand
+	)
 	.get(getBrandById)
 	.delete(deleteBrand);
 

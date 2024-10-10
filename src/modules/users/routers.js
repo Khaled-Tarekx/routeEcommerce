@@ -9,7 +9,6 @@ import {
 	deleteUser,
 	getMyUser,
 	updatePassword,
-	generateOtp,
 } from './controllers.js';
 import { updatePasswordSchema, updateUserSchema } from './validation.js';
 
@@ -23,7 +22,6 @@ router.patch(
 	validateResource(updatePasswordSchema),
 	updatePassword
 );
-router.post('/generate-otp', generateOtp);
 router.delete('/delete-user', deleteUser);
 
 router.get('/:id', getUserByID);

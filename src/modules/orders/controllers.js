@@ -9,13 +9,12 @@ import Stripe from 'stripe';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const getOrderById = asyncHandler(async (req, res) => {
+export const getOrderById = asyncHandler(async (req, res, next) => {
+	const user = req.user;
 	const { orderId } = req.params;
-	const order = await Order.findOne({ _id: orderId });
+	const order = await Order.findOne({ _id: orderId, owner: user._id });
 	if (!order) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'order doesnt exist' });
+		return next(new NotFound('order doesnt exist'));
 	}
 	res.status(StatusCodes.OK).json({ data: order });
 });
@@ -26,13 +25,15 @@ export const getLoggedInUserOrders = asyncHandler(async (req, res) => {
 	res.status(StatusCodes.OK).json({ data: orders });
 });
 
-export const deleteLoggedInUserOrder = asyncHandler(async (req, res) => {
+export const deleteOrderById = asyncHandler(async (req, res, next) => {
 	const user = req.user;
-	const order = await Order.findOneAndDelete({ owner: user._id });
+	const { orderId } = req.params;
+	const order = await Order.findOneAndDelete({
+		owner: user._id,
+		_id: orderId,
+	});
 	if (!order) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'order doesnt exist' });
+		return next(new NotFound('order doesnt exist'));
 	}
 	res.status(StatusCodes.OK).json({ data: order });
 });
@@ -139,32 +140,26 @@ export const createOnlinePaymentOrder = asyncHandler(
 			totalOrderPrice = cart.totalPrice;
 		}
 
-		let session;
-
-		try {
-			session = await stripe.checkout.sessions.create({
-				mode: 'payment',
-				success_url: 'https://route-ecommerce.vercel.app/',
-				cancel_url: 'https://route-ecommerce.vercel.app/api/v1/cart/',
-				customer_email: user.email,
-				client_reference_id: cart.id,
-				metadata: shippingAddress,
-				line_items: [
-					{
-						price_data: {
-							currency: 'egp',
-							unit_amount: Math.round(totalOrderPrice * 100),
-							product_data: {
-								name: user.name,
-							},
+		const session = await stripe.checkout.sessions.create({
+			mode: 'payment',
+			success_url: 'https://route-ecommerce.vercel.app/',
+			cancel_url: 'https://route-ecommerce.vercel.app/api/v1/cart/',
+			customer_email: user.email,
+			client_reference_id: cart.id,
+			metadata: shippingAddress,
+			line_items: [
+				{
+					price_data: {
+						currency: 'egp',
+						unit_amount: Math.round(totalOrderPrice * 100),
+						product_data: {
+							name: user.name,
 						},
-						quantity: 1,
 					},
-				],
-			});
-		} catch (error) {
-			return next(new Forbidden(error));
-		}
+					quantity: 1,
+				},
+			],
+		});
 
 		res.status(StatusCodes.OK).json({ data: session });
 	}

@@ -12,7 +12,15 @@ const updateCartPrice = async (cart) => {
 	let totalPrice = 0;
 
 	cart.cartItems.forEach((ele) => (totalPrice += ele.quantity * ele.price));
-	cart.totalPrice = totalPrice;
+	cart.totalPrice = Number(totalPrice.toFixed(2));
+	if (cart.discount) {
+		const discountAmount = (cart.discount / 100) * totalPrice;
+		cart.totalPriceAfterDiscount = Number(
+			(cart.totalPrice - discountAmount).toFixed(2)
+		);
+	} else {
+		cart.totalPriceAfterDiscount = totalPrice;
+	}
 	await cart.save();
 };
 

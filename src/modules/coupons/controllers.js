@@ -5,6 +5,7 @@ import ApiFeatures from '../../utils/api_Features.js';
 import QRCode from 'qrcode';
 import Cart from '../../../database/cart.model.js';
 import NotFound from '../../custom-errors/not-found.js';
+import Forbidden from '../../custom-errors/forbidden.js';
 
 export const getCoupons = asyncHandler(async (req, res) => {
 	const apiFeatrues = new ApiFeatures(Coupon.find({}), req.query)
@@ -16,53 +17,40 @@ export const getCoupons = asyncHandler(async (req, res) => {
 	res.status(StatusCodes.OK).json({ data: coupons });
 });
 
-export const getCouponById = asyncHandler(async (req, res) => {
+export const getCouponById = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const coupon = await Coupon.findById(id);
 	if (!coupon) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'coupon doesnt exist' });
+		return next(new NotFound('Coupon doesnt exist'));
 	}
 	const url = await QRCode.toDataURL(coupon.code);
 
 	res.status(StatusCodes.OK).json({ data: coupon, url });
 });
 
-export const updateCoupon = asyncHandler(async (req, res) => {
+export const updateCoupon = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const { code, expiredAt, type, status, discount } = req.body;
 
-	const couponToUpdate = await Coupon.findById(id);
-
-	if (!couponToUpdate) {
-		return res.status(404).json({ error: 'Coupon not found' });
-	}
-
 	const updatedCoupon = await Coupon.findByIdAndUpdate(
-		couponToUpdate.id,
+		id,
 		{ code, expiredAt, type, status, discount },
 		{ new: true }
 	);
 
 	if (!updatedCoupon) {
-		return res
-			.status(StatusCodes.NOT_FOUND)
-			.json({ error: 'Coupon doesnt exist' });
+		return next(new NotFound('Coupon doesnt exist'));
 	}
 
 	res.status(StatusCodes.OK).json({ data: updatedCoupon });
 });
 
-export const deleteCoupon = asyncHandler(async (req, res) => {
+export const deleteCoupon = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
-	const couponToDelete = await Coupon.findById(id);
+	const couponToDelete = await Coupon.findByIdAndDelete(id);
 	if (!couponToDelete) {
-		return res.status(404).json({ error: 'Coupon doesnt exist' });
+		return next(new NotFound('Coupon doesnt exist'));
 	}
-
-	await couponToDelete.deleteOne();
-
 	res.status(StatusCodes.OK).json({ message: 'coupon deleted successfully' });
 });
 
@@ -76,7 +64,9 @@ export const createCoupon = asyncHandler(async (req, res, next) => {
 		status,
 		discount,
 	});
-
+	if (!coupon) {
+		return next(new Forbidden('coupon creation failed'));
+	}
 	res.status(StatusCodes.CREATED).json({ data: coupon });
 });
 
@@ -106,6 +96,7 @@ export const applyCoupon = asyncHandler(async (req, res, next) => {
 	}
 	if (coupon.type === Type.fixed) {
 		cart.totalPriceAfterDiscount = cart.totalPrice - coupon.discount;
+		cart.discount = coupon.discount;
 	} else {
 		cart.totalPriceAfterDiscount =
 			cart.totalPrice - (cart.totalPrice * coupon.discount) / 100;
@@ -114,7 +105,8 @@ export const applyCoupon = asyncHandler(async (req, res, next) => {
 	if (!usedBefore) {
 		coupon.usersUsage.push({ user: user._id, usageCount: 1 });
 	}
-	await coupon.save();
 	await cart.save();
+
+	await coupon.save();
 	res.status(StatusCodes.CREATED).json({ data: cart });
 });
